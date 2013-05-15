@@ -21,7 +21,6 @@ use MooseX::Types::CreditCard qw(
 	CardSecurityCode
 );
 
-
 has number => (
 	isa         => CardNumber,
 	is          => 'ro',
