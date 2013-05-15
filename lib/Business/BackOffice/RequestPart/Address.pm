@@ -8,7 +8,10 @@ use namespace::autoclean;
 use Moose;
 use MooseX::RemoteHelper;
 
-with qw( MooseX::RemoteHelper::CompositeSerialization );
+with qw(
+	MooseX::RemoteHelper::CompositeSerialization
+	Business::BackOffice::Role::State
+);
 
 use MooseX::Types::Common::String qw( NonEmptySimpleStr );
 
@@ -22,12 +25,6 @@ has city => (
 	isa         => NonEmptySimpleStr,
 	is          => 'ro',
 	remote_name => 'City',
-);
-
-has state => (
-	isa         => NonEmptySimpleStr,
-	is          => 'ro',
-	remote_name => 'State',
 );
 
 has country => (
