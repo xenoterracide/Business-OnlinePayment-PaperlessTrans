@@ -3,6 +3,10 @@ use warnings;
 use Test::More;
 use Test::Method;
 use Class::Load 0.20 'load_class';
+use Test::Requires::Env qw(
+	PERL_BUSINESS_BACKOFFICE_USERNAME
+	PERL_BUSINESS_BACKOFFICE_PASSWORD
+);
 
 my $req_prefix = 'Business::BackOffice::Request';
 my $prefix     = $req_prefix . 'Part::';
@@ -44,65 +48,34 @@ my $card
 		identification  => $id,
 		expiration      => {
 			month => '12',
-			year  => '2012',
+			year  => '2015',
 		},
 	}]);
 
 my $token
 	= new_ok( load_class( $prefix . 'AuthenticationToken' ) => [{
-		terminal_id  => '00000000-0000-0000-0000-000000000000',
-		terminal_key => '000000000',
+		terminal_id  => $ENV{PERL_BUSINESS_BACKOFFICE_USERNAME},
+		terminal_key => $ENV{PERL_BUSINESS_BACKOFFICE_PASSWORD},
 	}]);
 
-my $obj
+my $req
 	= new_ok( load_class( $req_prefix . '::AuthorizeCard' ) => [{
-		token        => $token,
 		amount       => 9.65,
 		currency     => 'USD',
 		card         => $card,
 		card_present => 0,
+		test         => 1,
+		token        => $token,
 	}]);
 
-can_ok $obj, 'serialize';
 
-method_ok $obj, serialize => [], {
-	Token => {
-		TerminalID  => '00000000-0000-0000-0000-000000000000',
-		TerminalKey => '000000000',
-	},
-	TestMode    => 'True',
-	Amount      => 9.65,
-	Currency    => 'USD',
-	CardPresent => 0,
-	Card        => {
-		CardNumber      => '4012888888881881',
-		SecurityCode    => '999',
-		NameOnAccount   => 'John Doe and Associates',
-		EmailAddress    => 'JohnDoe@TestDomain.com',
-		ExpirationMonth => '12',
-		ExpirationYear  => '2012',
-		Identification => {
-			IDType     => 1,
-			State      => 'TX',
-			Number     => '12345678',
-			Expiration => '12/12/2009',
-			DOB        => '12/12/1965',
-			Address    => {
-				Street  => '400 E. Royal Lane #201',
-				City    => 'Irving',
-				State   => 'TX',
-				Zip     => '75039-2291',
-				Country => 'US',
-			},
-		},
-		Address    => {
-			Street  => '400 E. Royal Lane #201',
-			City    => 'Irving',
-			State   => 'TX',
-			Zip     => '75039-2291',
-			Country => 'US',
-		},
-	},
-};
+my $client
+	= new_ok( load_class('Business::BackOffice::Client') => [{
+		debug => $ENV{PERL_BUSINESS_BACKOFFICE_DEBUG},
+	}]);
+
+my $res = $client->submit( $req );
+
+isa_ok $res, 'Business::BackOffice::Response::AuthorizeCard';
 
 done_testing;

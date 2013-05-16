@@ -6,11 +6,13 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
+use MooseX::RemoteHelper;
 
 has token => (
-	isa      => 'Business::BackOffice::RequestPart::AuthenticationToken',
-	is       => 'rw',
-	required => 1,
+	remote_name => 'Token',
+	isa         => 'Business::BackOffice::RequestPart::AuthenticationToken',
+	is          => 'rw',
+	required    => 1,
 );
 
 1;

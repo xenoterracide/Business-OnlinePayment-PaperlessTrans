@@ -6,11 +6,8 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use MooseX::RemoteHelper;
 
-with qw(
-	MooseX::RemoteHelper::CompositeSerialization
-);
+extends 'Business::BackOffice::Request';
 
 sub _build_type {
 	return 'TestConnection';
@@ -23,11 +20,6 @@ has token => (
 	required    => 1,
 );
 
-has type => (
-	isa     => 'Str',
-	is      => 'ro',
-	lazy    => 1,
-	builder => '_build_type',
-);
-
 __PACKAGE__->meta->make_immutable;
+1;
+# ABSTRACT: Test Connection

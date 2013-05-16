@@ -27,6 +27,8 @@ my $client
 		debug => 1,
 	}]);
 
-$client->submit( $req );
+my $res = $client->submit( $req );
+
+isa_ok $res, 'Business::BackOffice::Response::TestConnection';
 
 done_testing;

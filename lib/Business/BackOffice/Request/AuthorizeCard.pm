@@ -6,14 +6,32 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use MooseX::RemoteHelper;
+
+extends 'Business::BackOffice::Request';
 
 with qw(
-	MooseX::RemoteHelper::CompositeSerialization
+	Business::BackOffice::Role::Token
 );
 
 use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
 use MooseX::Types::Locale::Currency qw( CurrencyCode      );
+
+sub _build_type {
+	return 'AuthorizeCard';
+}
+
+has test => (
+	remote_name => 'TestMode',
+	isa         => 'Bool',
+	is          => 'ro',
+	lazy        => 1,
+	default     => 1,
+	serializer  => sub {
+		my ( $attr, $instance ) = @_;
+
+		return $attr->get_value( $instance ) ? 'True' : 'False';
+	},
+);
 
 has amount => (
 	remote_name => 'Amount',
