@@ -6,7 +6,8 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use MooseX::RemoteHelper;
+
+extends 'Business::BackOffice::MessagePart';
 
 with qw(
 	MooseX::RemoteHelper::CompositeSerialization

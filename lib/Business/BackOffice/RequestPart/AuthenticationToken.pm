@@ -6,11 +6,12 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use MooseX::RemoteHelper;
+
+extends 'Business::BackOffice::MessagePart';
+with qw( MooseX::RemoteHelper::CompositeSerialization );
+
 use MooseX::Types::Common::String qw( NumericCode );
 use MooseX::Types::UUID qw( UUID );
-
-with qw( MooseX::RemoteHelper::CompositeSerialization );
 
 has terminal_id => (
 	isa         => UUID,
