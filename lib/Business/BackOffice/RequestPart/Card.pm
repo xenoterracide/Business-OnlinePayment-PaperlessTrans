@@ -11,9 +11,10 @@ extends 'Business::BackOffice::MessagePart';
 with qw(
 	MooseX::RemoteHelper::CompositeSerialization
 	Business::BackOffice::Role::Address
+	Business::BackOffice::Role::NameOnAccount
 );
 
-use MooseX::Types::Email qw( EmailAddress );
+use MooseX::Types::Email          qw( EmailAddress      );
 use MooseX::Types::Common::String qw( NonEmptySimpleStr );
 use MooseX::Types::CreditCard qw(
 	CardNumber
@@ -35,12 +36,6 @@ has security_code => (
     is          => 'ro',
 );
 
-has name_on_account => (
-	isa         => NonEmptySimpleStr,
-	is          => 'ro',
-	required    => 1,
-	remote_name => 'NameOnAccount',
-);
 
 has identification => (
 	isa         => 'Business::BackOffice::RequestPart::Identification',
