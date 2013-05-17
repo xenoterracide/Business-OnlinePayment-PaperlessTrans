@@ -1,4 +1,4 @@
-package Business::BackOffice::Response::AuthorizeCard;
+package Business::BackOffice::Response::ProcessCard;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -14,4 +14,4 @@ with qw(
 	
 __PACKAGE__->meta->make_immutable;
 1;
-# ABSTRACT: Authorized Card Response
+# ABSTRACT: Process Card Response
