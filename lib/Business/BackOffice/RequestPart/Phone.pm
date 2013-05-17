@@ -1,4 +1,4 @@
-package Business::BackOffice::RequestPart::Check;
+package Business::BackOffice::RequestPart::Phone;
 use strict;
 use warnings;
 use namespace::autoclean;
