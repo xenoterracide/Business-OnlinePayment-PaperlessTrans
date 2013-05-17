@@ -29,7 +29,7 @@ sub submit {
 
 	Dumper %request if $self->debug >= 1;
 		
-	my $answer = $self->_wsdl->call( $request->type => %request );
+	my $answer = $self->_get_call( $request->type )->( %request );
 
 	Dumper $answer  if $self->debug >= 1;
 
@@ -38,6 +38,16 @@ sub submit {
 	my $res_c = 'Business::BackOffice::Response::' . $request->type;
 
 	load_class( $res_c )->new( $res );
+}
+
+sub _build_calls {
+	my $self = shift;
+
+	my %calls;
+	foreach my $call ( qw( TestConnection AuthorizeCard ProcessCard ) ) {
+		$calls{$call} = $self->_wsdl->compileClient( $call );
+	}
+	return \%calls;
 }
 
 sub _build_wsdl {
@@ -51,8 +61,6 @@ sub _build_wsdl {
 	foreach my $xsd ( $self->_list_xsd_files ) {
 		$wsdl->importDefinitions( $xsd->stringify );
 	}
-
-	$wsdl->compileCalls;
 
 	return $wsdl;
 }
@@ -85,6 +93,17 @@ has debug => (
 	is       => 'ro',
 	lazy     => 1,
 	default  => 0,
+);
+
+has _calls => (
+	isa     => 'HashRef',
+	traits  => ['Hash'],
+	is      => 'rw',
+	lazy    => 1,
+	builder => '_build_calls',
+	handles => {
+		_get_call => 'get',
+	},
 );
 
 has _wsdl => (
