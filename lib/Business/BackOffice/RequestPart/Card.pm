@@ -12,6 +12,7 @@ with qw(
 	MooseX::RemoteHelper::CompositeSerialization
 	Business::BackOffice::Role::Address
 	Business::BackOffice::Role::NameOnAccount
+	Business::BackOffice::Role::Identification
 );
 
 use MooseX::Types::Email          qw( EmailAddress      );
@@ -34,13 +35,6 @@ has security_code => (
     remote_name => 'SecurityCode',
     predicate   => 'has_security_code',
     is          => 'ro',
-);
-
-
-has identification => (
-	isa         => 'Business::BackOffice::RequestPart::Identification',
-	is          => 'ro',
-	remote_name => 'Identification',
 );
 
 has email_address => (
