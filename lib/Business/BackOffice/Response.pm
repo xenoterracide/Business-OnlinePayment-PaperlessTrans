@@ -14,7 +14,7 @@ use MooseX::Types::UUID           qw( UUID                        );
 
 has transaction_id => (
 	remote_name => 'TransactionID',
-	isa         => UUID,
+	isa         => UUID|SimpleStr,
 	is          => 'ro',
 );
 
@@ -32,7 +32,7 @@ has message => (
 
 has timestamp => (
 	remote_name => 'DateTimeStamp',
-	isa         => NonEmptySimpleStr,
+	isa         => SimpleStr,
 	is          => 'ro',
 );
 

@@ -78,4 +78,8 @@ my $res = $client->submit( $req );
 
 isa_ok $res, 'Business::BackOffice::Response::AuthorizeCard';
 
+method_ok $res, is_approved => [], 1;
+method_ok $res, code        => [], 0;
+method_ok $res, message     => [], '';
+
 done_testing;

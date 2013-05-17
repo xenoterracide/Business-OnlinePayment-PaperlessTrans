@@ -11,7 +11,7 @@ use MooseX::Types::Common::String qw( NumericCode );
 extends 'Business::BackOffice::Request';
 
 with qw(
-	Business::BackOffice::Role::Authorization
+	Business::BackOffice::Request::Role::Authorization
 );
 
 sub _build_type {
