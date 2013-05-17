@@ -13,9 +13,9 @@ with qw(
 	Business::BackOffice::Role::Address
 	Business::BackOffice::Role::NameOnAccount
 	Business::BackOffice::Role::Identification
+	Business::BackOffice::Role::EmailAddress
 );
 
-use MooseX::Types::Email          qw( EmailAddress      );
 use MooseX::Types::Common::String qw( NonEmptySimpleStr );
 use MooseX::Types::CreditCard qw(
 	CardNumber
@@ -35,12 +35,6 @@ has security_code => (
     remote_name => 'SecurityCode',
     predicate   => 'has_security_code',
     is          => 'ro',
-);
-
-has email_address => (
-	isa         => EmailAddress,
-	is          => 'ro',
-	remote_name => 'EmailAddress',
 );
 
 has track_data => (
