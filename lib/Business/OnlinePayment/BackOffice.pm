@@ -14,11 +14,12 @@ my $ns     = 'Business::BackOffice::';
 sub submit {
 	my ( $self ) = @_;
 
+	my $card;
 	my %content = $self->content;
 	my $debug   = $content{debug} ? $content{debug} : 0;
 	my $token   = $self->_content_to_token( %content );
 	my $ident   = $self->_content_to_ident( %content );
-	my $card    = $self->_content_to_card( %content, identification => $ident)
+	   $card    = $self->_content_to_card( %content, identification => $ident)
 		if lc $self->transaction_type eq 'cc';
 
 	my $request;
@@ -102,16 +103,12 @@ sub _content_to_card {
 
 	# expiration api is bad but conforms to Business::OnlinePayment 3.02 Spec
 
-	$content{expiration} =~ m/^(\d\d)(\d\d)$/;
-	my ( $exp_month, $exp_year ) = ( $1, $2 );
-
-	my $track = $content{track1} . $content{track2}
-		if $content{track1} && $content{track2};
+	$content{expiration} =~ m/^(\d\d)(\d\d)$/xms;
+	my ( $exp_month, $exp_year ) = ( $1, $2 ); ## no critic ( ProhibitCaptureWithoutTest )
 
 	my %mapped = (
 		name_on_account => $content{name},
 		number          => $content{card_number},
-		track_data      => $track,
 		security_code   => $content{cvv2},
 		identification  => $content{identification},
 		expiration      => {
@@ -119,6 +116,9 @@ sub _content_to_card {
 			year  => '20' . $exp_year,
 		},
 	);
+
+	$mapped{track_data} = $content{track1} . $content{track2}
+		if $content{track1} && $content{track2};
 
 	return load_class( $ns . 'RequestPart::Card')->new( \%mapped );
 }
