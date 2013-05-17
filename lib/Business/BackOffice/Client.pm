@@ -41,7 +41,7 @@ sub submit {
 
 	my $res_c = 'Business::BackOffice::Response::' . $request->type;
 
-	load_class( $res_c )->new( $res );
+	return load_class( $res_c )->new( $res );
 }
 
 sub _build_calls {
