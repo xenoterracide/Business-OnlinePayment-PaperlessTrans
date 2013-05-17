@@ -11,7 +11,7 @@ extends 'Business::BackOffice::Response';
 with qw(
 	Business::BackOffice::Response::Role::Authorization
 );
-	
+
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: Authorized Card Response

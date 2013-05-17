@@ -36,6 +36,6 @@ has authorization => (
 	isa         => NonEmptySimpleStr,
 	is          => 'ro',
 );
-	
+
 1;
 # ABSTRACT: Authorized Card Response

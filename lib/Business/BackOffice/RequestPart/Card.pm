@@ -72,7 +72,7 @@ has _expiration_year => (
 	init_arg    => undef,
 	default     => sub { shift->expiration->year },
 );
-	
+
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: Card

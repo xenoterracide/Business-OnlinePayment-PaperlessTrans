@@ -32,7 +32,7 @@ has id_type => (
 );
 
 has number => (
-	isa         => NonEmptySimpleStr, 
+	isa         => NonEmptySimpleStr,
 	is          => 'ro',
 	remote_name => 'Number',
 	required    => 1,

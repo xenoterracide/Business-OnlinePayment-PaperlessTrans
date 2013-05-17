@@ -29,7 +29,7 @@ sub submit {
 	}
 
 	Dumper %request if $self->debug >= 1;
-		
+
 	my ( $answer, $trace ) = $self->_get_call( $request->type )->( %request );
 
 	carp "REQUEST >\n"  . $trace->request->as_string  if $self->debug > 1;

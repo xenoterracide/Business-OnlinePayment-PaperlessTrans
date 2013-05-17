@@ -43,7 +43,6 @@ has phone_2 => (
 	isa         => 'Business::BackOffice::RequestPart::Phone',
 	is          => 'ro',
 );
-	
 
 __PACKAGE__->meta->make_immutable;
 1;
