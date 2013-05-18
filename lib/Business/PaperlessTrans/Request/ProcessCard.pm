@@ -6,23 +6,17 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use MooseX::Types::Common::String qw( NumericCode );
 
 extends 'Business::PaperlessTrans::Request';
 
 with qw(
 	Business::PaperlessTrans::Request::Role::Authorization
+	Business::PaperlessTrans::Request::Role::Profile
 );
 
 sub _build_type {
 	return 'ProcessCard';
 }
-
-has profile_number => (
-	remote_name => 'ProfileNumber',
-	isa         => NumericCode,
-	is          => 'ro',
-);
 
 __PACKAGE__->meta->make_immutable;
 1;
