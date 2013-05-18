@@ -70,7 +70,7 @@ sub _build_wsdl {
 }
 
 sub _build_wsdl_file {
-	load 'File::ShareDir::ProjectDistDir', 'dist_file', 'dist_dir';
+	load 'File::ShareDir::ProjectDistDir', 'dist_file';
 
 	return load_class('Path::Class::File')->new(
 		dist_file(
