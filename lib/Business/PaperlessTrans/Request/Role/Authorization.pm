@@ -7,38 +7,11 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::RemoteHelper;
-use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
-use MooseX::Types::Locale::Currency qw( CurrencyCode      );
 
 with qw(
-	Business::PaperlessTrans::Role::Token
-);
-
-has test => (
-	remote_name => 'TestMode',
-	isa         => 'Bool',
-	is          => 'ro',
-	lazy        => 1,
-	default     => 1,
-	serializer  => sub {
-		my ( $attr, $instance ) = @_;
-
-		return $attr->get_value( $instance ) ? 'True' : 'False';
-	},
-);
-
-has amount => (
-	remote_name => 'Amount',
-	isa         => PositiveOrZeroNum,
-	is          => 'ro',
-	required    => 1,
-);
-
-has currency => (
-	remote_name => 'Currency',
-	isa         => CurrencyCode,
-	is          => 'ro',
-	required    => 1,
+	Business::PaperlessTrans::Request::Role::Token
+	Business::PaperlessTrans::Request::Role::Test
+	Business::PaperlessTrans::Request::Role::Money
 );
 
 has card_present => (

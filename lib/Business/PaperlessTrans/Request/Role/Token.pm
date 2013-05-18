@@ -1,4 +1,4 @@
-package Business::PaperlessTrans::Role::Token;
+package Business::PaperlessTrans::Request::Role::Token;
 use strict;
 use  warnings;
 use namespace::autoclean;
