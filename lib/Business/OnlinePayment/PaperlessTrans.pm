@@ -125,12 +125,14 @@ sub _content_to_card {
 
 1;
 
-# ABSTRACT: Business::OnlinePayment interface for Paperless Transaction Corporation PaperlessTrans API
+# ABSTRACT: Interface to Paperless Transaction Corporation BackOffice API
 
 =head1 SEE ALSO
 
 =over
 
 =item L<Business::OnlinePayment>
+
+=item L<Business::PaperlessTrans>
 
 =back
