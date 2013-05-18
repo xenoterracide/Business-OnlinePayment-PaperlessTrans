@@ -8,7 +8,7 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_BACKOFFICE_PASSWORD
 );
 
-my $req_prefix = 'Business::BackOffice::Request';
+my $req_prefix = 'Business::PaperlessTrans::Request';
 my $prefix     = $req_prefix . 'Part::';
 
 my $token
@@ -23,12 +23,12 @@ my $req
 	}]);
 
 my $client
-	= new_ok( load_class('Business::BackOffice::Client') => [{
+	= new_ok( load_class('Business::PaperlessTrans::Client') => [{
 		debug => 1,
 	}]);
 
 my $res = $client->submit( $req );
 
-isa_ok $res, 'Business::BackOffice::Response::TestConnection';
+isa_ok $res, 'Business::PaperlessTrans::Response::TestConnection';
 
 done_testing;

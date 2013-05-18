@@ -4,7 +4,7 @@ use Test::More;
 use Test::Method;
 use Class::Load 0.20 'load_class';
 
-my $req_prefix = 'Business::BackOffice::Request';
+my $req_prefix = 'Business::PaperlessTrans::Request';
 my $prefix     = $req_prefix . 'Part::';
 
 my $address

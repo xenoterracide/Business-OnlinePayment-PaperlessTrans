@@ -4,7 +4,7 @@ use Test::More;
 use Test::Method;
 use Class::Load 0.20 'load_class';
 
-my $prefix = 'Business::BackOffice::RequestPart::';
+my $prefix = 'Business::PaperlessTrans::RequestPart::';
 
 my $obj
 	= new_ok( load_class( $prefix . 'Address' ) => [{

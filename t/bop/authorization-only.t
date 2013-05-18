@@ -9,9 +9,9 @@ use Test::Requires::Env qw(
 );
 use Class::Load 0.20 'load_class';
 
-my $tx = new_ok( load_class('Business::OnlinePayment') => [ 'BackOffice' ]);
+my $tx = new_ok( load_class('Business::OnlinePayment') => [ 'PaperlessTrans' ]);
 
-isa_ok $tx, 'Business::OnlinePayment::BackOffice';
+isa_ok $tx, 'Business::OnlinePayment::PaperlessTrans';
 
 $tx->test_transaction(1);
 

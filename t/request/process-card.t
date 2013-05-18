@@ -8,7 +8,7 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_BACKOFFICE_PASSWORD
 );
 
-my $req_prefix = 'Business::BackOffice::Request';
+my $req_prefix = 'Business::PaperlessTrans::Request';
 my $prefix     = $req_prefix . 'Part::';
 
 my $address
@@ -70,7 +70,7 @@ my $req
 
 
 my $client
-	= new_ok( load_class('Business::BackOffice::Client') => [{
+	= new_ok( load_class('Business::PaperlessTrans::Client') => [{
 		debug => $ENV{PERL_BUSINESS_BACKOFFICE_DEBUG},
 	}]);
 
@@ -78,7 +78,7 @@ my $res = $client->submit( $req );
 
 diag $client->_wsdl->explain('ProcessCard',  PERL => 'INPUT', recurse => 1);
 
-isa_ok $res, 'Business::BackOffice::Response::ProcessCard';
+isa_ok $res, 'Business::PaperlessTrans::Response::ProcessCard';
 
 method_ok $res, is_approved => [], 1;
 method_ok $res, code        => [], 0;
