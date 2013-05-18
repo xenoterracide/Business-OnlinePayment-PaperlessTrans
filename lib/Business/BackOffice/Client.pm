@@ -70,10 +70,13 @@ sub _build_wsdl {
 }
 
 sub _build_wsdl_file {
-	load 'File::ShareDir::ProjectDistDir', 'dist_file';
+	load 'File::ShareDir::ProjectDistDir', 'dist_file', 'dist_dir';
 
 	return load_class('Path::Class::File')->new(
-		dist_file( 'Business-BackOffice', 'svc.paperlesstrans.wsdl' )
+		dist_file(
+			'Business-OnlinePayment-BackOffice',
+			'svc.paperlesstrans.wsdl'
+		)
 	);
 }
 
@@ -84,7 +87,10 @@ sub _build_xsd_files {
 	foreach ( 0..6 ) {
 		my $file
 			= load_class('Path::Class::File')->new(
-				dist_file('Business-BackOffice', "svc.paperlesstrans.$_.xsd")
+				dist_file(
+					'Business-OnlinePayment-BackOffice',
+					"svc.paperlesstrans.$_.xsd"
+				)
 			);
 
 		push @xsd, $file;
