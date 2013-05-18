@@ -125,4 +125,12 @@ sub _content_to_card {
 
 1;
 
-# ABSTRACT: Business::OnlinePayment::BackOffice
+# ABSTRACT: Business::OnlinePayment interface for Paperless Transaction Corporation BackOffice API
+
+=head1 SEE ALSO
+
+=over
+
+=item L<Business::OnlinePayment>
+
+=back
