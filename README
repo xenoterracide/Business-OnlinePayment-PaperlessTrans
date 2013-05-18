@@ -1,0 +1,20 @@
+NAME
+    Business::OnlinePayment::PaperlessTrans - Business::OnlinePayment
+    interface for Paperless Transaction Corporation PaperlessTrans API
+
+VERSION
+    version 0.001000
+
+SEE ALSO
+    Business::OnlinePayment
+
+AUTHOR
+    Caleb Cushing <xenoterracide@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is Copyright (c) 2013 by Caleb Cushing.
+
+    This is free software, licensed under:
+
+      The Artistic License 2.0 (GPL Compatible)
+
