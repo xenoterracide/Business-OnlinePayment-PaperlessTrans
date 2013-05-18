@@ -125,7 +125,7 @@ sub _content_to_card {
 
 1;
 
-# ABSTRACT: Business::OnlinePayment interface for Paperless Transaction Corporation PaperlessTrans API
+# ABSTRACT: Interface to Paperless Transaction Corporation BackOffice API
 
 __END__
 
@@ -133,7 +133,7 @@ __END__
 
 =head1 NAME
 
-Business::OnlinePayment::PaperlessTrans - Business::OnlinePayment interface for Paperless Transaction Corporation PaperlessTrans API
+Business::OnlinePayment::PaperlessTrans - Interface to Paperless Transaction Corporation BackOffice API
 
 =head1 VERSION
 
@@ -144,6 +144,8 @@ version 0.001000
 =over
 
 =item L<Business::OnlinePayment>
+
+=item L<Business::PaperlessTrans>
 
 =back
 
