@@ -186,9 +186,71 @@ sub _content_to_card {
 
 # ABSTRACT: Interface to Paperless Transaction Corporation BackOffice API
 
+=head1 SYNOPSIS
+
+	use Try::Tiny;
+	use Business::OnlinePayment;
+
+	my $tx = Business::OnlinePayment->new('PaperlessTrans');
+
+	$tx->test_transaction(1);
+
+	$tx->content(
+		login          => 'TerminalID',
+		password       => 'TerminalKey',
+		debug          => '1', # 0, 1, 2
+		type           => 'ECHECK',
+		action         => 'Normal Authorization',
+		check_number   => '132',
+		amount         => 1.32,
+		routing_code   => 111111118,
+		account_number => 12121214,
+		name           => 'Caleb Cushing',
+		address        => '400 E. Royal Lane #201',
+		city           => 'Irving',
+		state          => 'TX',
+		zip            => '75039-2291',
+		country        => 'US',
+	);
+
+	try {
+		$tx->submit;
+	}
+	catch {
+		# log errors
+	};
+
+	if ( $tx->is_success ) {
+		# do stuff with
+		$tx->order_number;
+		$tx->authorization;
+	}
+	else {
+		# log
+		$tx->error_message;
+	}
+
+	# start all over again credit cards
+	$tx->content(
+		login          => 'TerminalID',
+		password       => 'TerminalKey',
+		debug          => '1', # 0, 1, 2
+		type        => 'CC',
+		action      => 'Authorization Only',
+		amount      => 1.00,
+		name        => 'Caleb Cushing',
+		card_number => '5454545454545454',
+		expiration  => '1215',
+		cvv2        => '111',
+	);
+
+	## ...
+
 =head1 SEE ALSO
 
 =over
+
+=item L<BackOfficeAPI|http://support.paperlesstrans.com/api-overview.php>
 
 =item L<Business::OnlinePayment>
 
