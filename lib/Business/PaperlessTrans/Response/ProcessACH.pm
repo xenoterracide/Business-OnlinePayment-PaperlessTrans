@@ -11,7 +11,7 @@ extends 'Business::PaperlessTrans::Response';
 with qw(
 	Business::PaperlessTrans::Response::Role::Authorization
 );
-use MooseX::RemoteHelper::Types qw( Bool ); 
+use MooseX::RemoteHelper::Types qw( Bool );
 
 has is_accepted => (
 	remote_name => 'IsAccepted',
