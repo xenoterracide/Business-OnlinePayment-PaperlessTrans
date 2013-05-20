@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Fatal;
 use Test::Method;
 use Test::Requires::Env qw(
 	PERL_BUSINESS_BACKOFFICE_USERNAME
