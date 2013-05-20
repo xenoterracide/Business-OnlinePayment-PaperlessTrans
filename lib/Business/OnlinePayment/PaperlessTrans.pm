@@ -250,7 +250,7 @@ sub _content_to_card {
 
 =over
 
-=item L<BackOfficeAPI|http://support.paperlesstrans.com/api-overview.php>
+=item L<BackOffice API|http://support.paperlesstrans.com/api-overview.php>
 
 =item L<Business::OnlinePayment>
 
