@@ -11,10 +11,8 @@ use MooseX::Types::Common::String qw( NumericCode );
 extends 'Business::PaperlessTrans::Request';
 
 with qw(
-	Business::PaperlessTrans::Request::Role::Token
-	Business::PaperlessTrans::Request::Role::Test
-	Business::PaperlessTrans::Request::Role::Money
 	Business::PaperlessTrans::Request::Role::Profile
+	Business::PaperlessTrans::Request::Role::Money
 );
 
 sub _build_type {

@@ -70,11 +70,12 @@ method_ok $obj, serialize => [], {
 		TerminalID  => '00000000-0000-0000-0000-000000000000',
 		TerminalKey => '000000000',
 	},
-	TestMode    => 'True',
-	Amount      => 9.65,
-	Currency    => 'USD',
-	CardPresent => 0,
-	Card        => {
+	TestMode     => 'True',
+	Amount       => 9.65,
+	Currency     => 'USD',
+	CardPresent  => 0,
+	CustomFields => {},
+	Card         => {
 		CardNumber      => '4012888888881881',
 		SecurityCode    => '999',
 		NameOnAccount   => 'John Doe and Associates',

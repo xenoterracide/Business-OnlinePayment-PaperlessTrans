@@ -68,11 +68,12 @@ method_ok $obj, serialize => [], {
 		TerminalID  => '00000000-0000-0000-0000-000000000000',
 		TerminalKey => '000000000',
 	},
-	TestMode    => 'True',
-	Amount      => 4.22,
-	Currency    => 'USD',
-	CheckNumber => '022',
-	Check       => {
+	TestMode     => 'True',
+	Amount       => 4.22,
+	Currency     => 'USD',
+	CheckNumber  => '022',
+	CustomFields => {},
+	Check        => {
 		RoutingNumber   => '111111118',
 		AccountNumber   => '12121214',
 		NameOnAccount   => 'Richard Simões',

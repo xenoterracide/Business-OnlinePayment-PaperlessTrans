@@ -10,6 +10,7 @@ extends 'Business::PaperlessTrans::Response';
 
 with qw(
 	Business::PaperlessTrans::Response::Role::Authorization
+	Business::PaperlessTrans::Response::Role::IsApproved
 );
 
 __PACKAGE__->meta->make_immutable;

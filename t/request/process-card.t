@@ -76,8 +76,6 @@ my $client
 
 my $res = $client->submit( $req );
 
-diag $client->_wsdl->explain('ProcessCard',  PERL => 'INPUT', recurse => 1);
-
 isa_ok $res, 'Business::PaperlessTrans::Response::ProcessCard';
 
 method_ok $res, is_approved => [], 1;

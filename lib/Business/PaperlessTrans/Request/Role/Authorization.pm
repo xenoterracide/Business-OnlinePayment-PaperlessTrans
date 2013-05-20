@@ -9,8 +9,6 @@ use Moose::Role;
 use MooseX::RemoteHelper;
 
 with qw(
-	Business::PaperlessTrans::Request::Role::Token
-	Business::PaperlessTrans::Request::Role::Test
 	Business::PaperlessTrans::Request::Role::Money
 );
 

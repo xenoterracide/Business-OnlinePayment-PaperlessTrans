@@ -8,9 +8,9 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::PaperlessTrans::MessagePart';
 
-use MooseX::Types::Common::String qw( SimpleStr NonEmptySimpleStr );
-use Moose::Util::TypeConstraints  qw( enum                        );
-use MooseX::Types::UUID           qw( UUID                        );
+use MooseX::Types::Common::String qw( SimpleStr );
+use Moose::Util::TypeConstraints  qw( enum      );
+use MooseX::Types::UUID           qw( UUID      );
 
 has transaction_id => (
 	remote_name => 'TransactionID',

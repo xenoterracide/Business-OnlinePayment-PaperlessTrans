@@ -74,7 +74,7 @@ my $res = $client->submit( $req );
 
 isa_ok $res, 'Business::PaperlessTrans::Response::ProcessACH';
 
-method_ok $res, is_approved => [], 1;
+method_ok $res, is_accepted => [], 1;
 method_ok $res, code        => [], 0;
 method_ok $res, message     => [], '';
 

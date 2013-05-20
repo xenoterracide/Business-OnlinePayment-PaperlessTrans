@@ -8,6 +8,8 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::PaperlessTrans::MessagePart';
 
+use Class::Load 0.20 'load_class';
+
 with qw(
 	MooseX::RemoteHelper::CompositeSerialization
 );
@@ -17,6 +19,35 @@ has type => (
 	is      => 'ro',
 	lazy    => 1,
 	builder => '_build_type',
+);
+
+has token => (
+	remote_name => 'Token',
+	isa         => 'Business::PaperlessTrans::RequestPart::AuthenticationToken',
+	is          => 'rw',
+	required    => 1,
+);
+
+has custom_fields => (
+	remote_name => 'CustomFields',
+	isa         => 'Business::PaperlessTrans::RequestPart::CustomFields',
+	is          => 'ro',
+	default     => sub {
+		load_class('Business::PaperlessTrans::RequestPart::CustomFields')->new
+	},
+);
+
+has test => (
+	remote_name => 'TestMode',
+	isa         => 'Bool',
+	is          => 'ro',
+	lazy        => 1,
+	default     => 1,
+	serializer  => sub {
+		my ( $attr, $instance ) = @_;
+
+		return $attr->get_value( $instance ) ? 'True' : 'False';
+	},
 );
 
 __PACKAGE__->meta->make_immutable;
