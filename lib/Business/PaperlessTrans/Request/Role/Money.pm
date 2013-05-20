@@ -1,4 +1,4 @@
-package Business::PaperlessTrans::Request::Role::Authorization;
+package Business::PaperlessTrans::Request::Role::Money;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -7,26 +7,25 @@ our $VERSION = '0.001000'; # VERSION
 
 use Moose::Role;
 use MooseX::RemoteHelper;
+use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
+use MooseX::Types::Locale::Currency qw( CurrencyCode      );
 
-with qw(
-	Business::PaperlessTrans::Request::Role::Money
-);
-
-has card_present => (
-	remote_name => 'CardPresent',
-	isa         => 'Bool',
+has amount => (
+	remote_name => 'Amount',
+	isa         => PositiveOrZeroNum,
 	is          => 'ro',
+	required    => 1,
 );
 
-has card => (
-	remote_name => 'Card',
-	isa         => 'Business::PaperlessTrans::RequestPart::Card',
+has currency => (
+	remote_name => 'Currency',
+	isa         => CurrencyCode,
 	is          => 'ro',
 	required    => 1,
 );
 
 1;
-# ABSTRACT: Request does Authorization
+# ABSTRACT: Money Attributes
 
 __END__
 
@@ -34,7 +33,7 @@ __END__
 
 =head1 NAME
 
-Business::PaperlessTrans::Request::Role::Authorization - Request does Authorization
+Business::PaperlessTrans::Request::Role::Money - Money Attributes
 
 =head1 VERSION
 

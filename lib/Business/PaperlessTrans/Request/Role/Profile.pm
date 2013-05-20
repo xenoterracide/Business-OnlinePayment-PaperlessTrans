@@ -1,22 +1,22 @@
-package Business::PaperlessTrans::Role::Token;
+package Business::PaperlessTrans::Request::Role::Profile;
 use strict;
-use  warnings;
+use warnings;
 use namespace::autoclean;
 
 our $VERSION = '0.001000'; # VERSION
 
 use Moose::Role;
 use MooseX::RemoteHelper;
+use MooseX::Types::Common::String qw( NumericCode );
 
-has token => (
-	remote_name => 'Token',
-	isa         => 'Business::PaperlessTrans::RequestPart::AuthenticationToken',
-	is          => 'rw',
-	required    => 1,
+has profile_number => (
+	remote_name => 'ProfileNumber',
+	isa         => NumericCode,
+	is          => 'ro',
 );
 
 1;
-# ABSTRACT: Provides AuthenticationToken Attribute
+# ABSTRACT: Test Mode
 
 __END__
 
@@ -24,7 +24,7 @@ __END__
 
 =head1 NAME
 
-Business::PaperlessTrans::Role::Token - Provides AuthenticationToken Attribute
+Business::PaperlessTrans::Request::Role::Profile - Test Mode
 
 =head1 VERSION
 

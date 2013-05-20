@@ -35,14 +35,13 @@ my %WriteMakefileArgs = (
     "Moose::Util::TypeConstraints" => 0,
     "MooseX::RemoteHelper" => 0,
     "MooseX::RemoteHelper::CompositeSerialization" => 0,
-    "MooseX::Types" => 0,
+    "MooseX::RemoteHelper::Types" => 0,
     "MooseX::Types::Common::Numeric" => "0.001003",
     "MooseX::Types::Common::String" => 0,
     "MooseX::Types::CreditCard" => 0,
     "MooseX::Types::DateTime" => 0,
     "MooseX::Types::Email" => 0,
     "MooseX::Types::Locale::Currency" => 0,
-    "MooseX::Types::Moose" => 0,
     "MooseX::Types::Path::Class" => 0,
     "MooseX::Types::UUID" => 0,
     "MooseX::UndefTolerant" => 0,
@@ -57,14 +56,13 @@ my %WriteMakefileArgs = (
   "TEST_REQUIRES" => {
     "File::Find" => 0,
     "File::Temp" => 0,
-    "Test::Fatal" => 0,
     "Test::Method" => 0,
     "Test::More" => "0.88",
     "Test::Requires::Env" => 0
   },
   "VERSION" => "0.001000",
   "test" => {
-    "TESTS" => "t/*.t t/bop/*.t t/request/*.t"
+    "TESTS" => "t/*.t t/bop/cc/reject/*.t t/bop/cc/success/*.t t/bop/echeck/reject/*.t t/bop/echeck/success/*.t t/request/*.t"
   }
 );
 

@@ -7,6 +7,7 @@ use Class::Load 0.20 'load_class';
 my $req_prefix = 'Business::PaperlessTrans::Request';
 my $prefix     = $req_prefix . 'Part::';
 
+
 my $address
 	= new_ok( load_class( $prefix . 'Address' ) => [{
 		street  => '400 E. Royal Lane #201',
@@ -14,6 +15,14 @@ my $address
 		state   => 'TX',
 		zip     => '75039-2291',
 		country => 'US',
+	}]);
+
+my $check
+	= new_ok( load_class( $prefix . 'Check') => [{
+		routing_number  => 111111118,
+		account_number  => 12121214,
+		name_on_account => 'Richard Simões',
+		address         => $address,
 	}]);
 
 my $id
@@ -34,20 +43,6 @@ my $id
 		},
 	}]);
 
-my $card
-	= new_ok( load_class( $prefix . 'Card' ) => [{
-		number          => '4012888888881881',
-		security_code   => '999',
-		name_on_account => 'John Doe and Associates',
-		email_address   => 'JohnDoe@TestDomain.com',
-		address         => $address,
-		identification  => $id,
-		expiration      => {
-			month => '12',
-			year  => '2012',
-		},
-	}]);
-
 my $token
 	= new_ok( load_class( $prefix . 'AuthenticationToken' ) => [{
 		terminal_id  => '00000000-0000-0000-0000-000000000000',
@@ -55,15 +50,18 @@ my $token
 	}]);
 
 my $obj
-	= new_ok( load_class( $req_prefix . '::AuthorizeCard' ) => [{
-		token        => $token,
-		amount       => 9.65,
+	= new_ok( load_class( $req_prefix . '::ProcessACH' ) => [{
+		amount       => 4.22,
 		currency     => 'USD',
-		card         => $card,
-		card_present => 0,
+		check_number => '022',
+		check        => $check,
+		test         => 1,
+		token        => $token,
 	}]);
 
-can_ok $obj, 'serialize';
+can_ok    $obj, 'serialize';
+can_ok    $obj, 'type';
+method_ok $obj, type => [], 'ProcessACH';
 
 method_ok $obj, serialize => [], {
 	Token => {
@@ -71,31 +69,14 @@ method_ok $obj, serialize => [], {
 		TerminalKey => '000000000',
 	},
 	TestMode     => 'True',
-	Amount       => 9.65,
+	Amount       => 4.22,
 	Currency     => 'USD',
-	CardPresent  => 0,
+	CheckNumber  => '022',
 	CustomFields => {},
-	Card         => {
-		CardNumber      => '4012888888881881',
-		SecurityCode    => '999',
-		NameOnAccount   => 'John Doe and Associates',
-		EmailAddress    => 'JohnDoe@TestDomain.com',
-		ExpirationMonth => '12',
-		ExpirationYear  => '2012',
-		Identification => {
-			IDType     => 1,
-			State      => 'TX',
-			Number     => '12345678',
-			Expiration => '12/12/2009',
-			DOB        => '12/12/1965',
-			Address    => {
-				Street  => '400 E. Royal Lane #201',
-				City    => 'Irving',
-				State   => 'TX',
-				Zip     => '75039-2291',
-				Country => 'US',
-			},
-		},
+	Check        => {
+		RoutingNumber   => '111111118',
+		AccountNumber   => '12121214',
+		NameOnAccount   => 'Richard Simões',
 		Address    => {
 			Street  => '400 E. Royal Lane #201',
 			City    => 'Irving',

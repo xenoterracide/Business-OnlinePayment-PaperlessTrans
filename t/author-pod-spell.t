@@ -32,6 +32,8 @@ Request
 TestConnection
 Response
 AuthorizeCard
+Profile
+ProcessACH
 State
 EmailAddress
 Authorization
@@ -39,8 +41,10 @@ MessagePart
 Check
 Address
 OnlinePayment
+CustomFields
 Client
-Token
+IsApproved
 ProcessCard
 NameOnAccount
 Card
+Money

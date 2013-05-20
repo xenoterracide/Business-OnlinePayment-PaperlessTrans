@@ -14,33 +14,53 @@ my $ns     = 'Business::PaperlessTrans::';
 sub submit {
 	my ( $self ) = @_;
 
-	my $card;
 	my %content = $self->content;
+	my $action  = lc $content{action};
+	my $trans_t = lc $self->transaction_type;
 	my $debug   = $content{debug} ? $content{debug} : 0;
 	my $token   = $self->_content_to_token( %content );
 	my $ident   = $self->_content_to_ident( %content );
-	   $card    = $self->_content_to_card( %content, identification => $ident)
-		if lc $self->transaction_type eq 'cc';
+	my $address = $self->_content_to_address( %content );
 
-	my $request;
-	if ( lc $content{action} eq 'authorization only'
-			||  lc $content{action} eq 'normal authorization'
-		) {
-		my $request_class
-			= lc $content{action} eq 'authorization only'
-			? 'AuthorizeCard'
-			: 'ProcessCard'
-			;
+	my %args = (
+		amount       => $content{amount},
+		currency     => $content{currency},
+		token        => $token,
+		test         => $self->test_transaction ? 1 : 0,
+	);
 
-		$request = load_class( $ns . 'Request::' . $request_class )->new({
-			amount       => $content{amount},
-			currency     => $content{currency},
-			card         => $card,
-			token        => $token,
-			card_present => $content{track1} ? 1 : 0,
-			test         => $self->test_transaction ? 1 : 0,
-		});
+	my %payment_content = (
+		%content,
+		identification => $ident,
+		address        => $address,
+	);
+
+	if ( $trans_t eq 'cc' ) {
+		$args{card_present} = $content{track1} ? 1 : 0;
+	    $args{card} = $self->_content_to_card( %payment_content );
 	}
+	elsif ( $trans_t eq 'echeck' ) {
+		$args{check_number} = $content{check_number};
+		$args{check} = $self->_content_to_check( %payment_content );
+	}
+
+	## determine appropriate request class
+	my $request_class;
+	if ( $action eq 'authorization only' && $trans_t eq 'cc' ){
+		$request_class = 'AuthorizeCard';
+	}
+	elsif ( $action eq 'normal authorization' && $trans_t eq 'cc' ) {
+		$request_class = 'ProcessCard';
+	}
+	elsif ( $action eq 'normal authorization' && $trans_t eq 'echeck' ) {
+		$request_class = 'ProcessACH';
+	}
+
+
+	my $request
+		= load_class( $ns . 'Request::' . $request_class )
+		->new( \%args )
+		;
 
 	$self->{_client}
 		||= load_class( $ns . 'Client')
@@ -51,10 +71,14 @@ sub submit {
 
 	# code != 0 is a transmission error
 	if ( $response->code == 0 ) {
-		if ( $response->is_approved ) {
+		# in future should consider making thse the same api?
+		if (   ( $response->can('is_approved') && $response->is_approved )
+			|| ( $response->can('is_accepted') && $response->is_accepted )
+			) {
 			$self->is_success(1);
 		}
 		else {
+			$self->is_success(0);
 			$self->error_message( $response->message );
 		}
 	}
@@ -98,6 +122,39 @@ sub _content_to_token {
 		;
 }
 
+sub _content_to_address {
+	my ( $self, %content ) = @_;
+
+	my %mapped = (
+		street  => $content{address},
+		city    => $content{city},
+		state   => $content{state},
+		zip     => $content{zip},
+		country => $content{country},
+	);
+
+	return load_class( $ns . 'RequestPart::Address')
+		->new( \%mapped )
+		;
+}
+
+sub _content_to_check {
+	my ( $self, %content ) = @_;
+
+	my %mapped = (
+		name_on_account => $content{account_name},
+		account_number  => $content{account_number},
+		routing_number  => $content{routing_code},
+		identification  => $content{identification},
+		address         => $content{address},
+		email_address   => $content{email},
+	);
+
+	return load_class( $ns . 'RequestPart::Check')
+		->new( \%mapped )
+		;
+}
+
 sub _content_to_card {
 	my ( $self, %content ) = @_;
 
@@ -111,6 +168,8 @@ sub _content_to_card {
 		number          => $content{card_number},
 		security_code   => $content{cvv2},
 		identification  => $content{identification},
+		address         => $content{address},
+		email_address   => $content{email},
 		expiration      => {
 			month => $exp_month,
 			year  => '20' . $exp_year,
@@ -139,9 +198,71 @@ Business::OnlinePayment::PaperlessTrans - Interface to Paperless Transaction Cor
 
 version 0.001000
 
+=head1 SYNOPSIS
+
+	use Try::Tiny;
+	use Business::OnlinePayment;
+
+	my $tx = Business::OnlinePayment->new('PaperlessTrans');
+
+	$tx->test_transaction(1);
+
+	$tx->content(
+		login          => 'TerminalID',
+		password       => 'TerminalKey',
+		debug          => '1', # 0, 1, 2
+		type           => 'ECHECK',
+		action         => 'Normal Authorization',
+		check_number   => '132',
+		amount         => 1.32,
+		routing_code   => 111111118,
+		account_number => 12121214,
+		name           => 'Caleb Cushing',
+		address        => '400 E. Royal Lane #201',
+		city           => 'Irving',
+		state          => 'TX',
+		zip            => '75039-2291',
+		country        => 'US',
+	);
+
+	try {
+		$tx->submit;
+	}
+	catch {
+		# log errors
+	};
+
+	if ( $tx->is_success ) {
+		# do stuff with
+		$tx->order_number;
+		$tx->authorization;
+	}
+	else {
+		# log
+		$tx->error_message;
+	}
+
+	# start all over again credit cards
+	$tx->content(
+		login          => 'TerminalID',
+		password       => 'TerminalKey',
+		debug          => '1', # 0, 1, 2
+		type        => 'CC',
+		action      => 'Authorization Only',
+		amount      => 1.00,
+		name        => 'Caleb Cushing',
+		card_number => '5454545454545454',
+		expiration  => '1215',
+		cvv2        => '111',
+	);
+
+	## ...
+
 =head1 SEE ALSO
 
 =over
+
+=item L<BackOfficeAPI|http://support.paperlesstrans.com/api-overview.php>
 
 =item L<Business::OnlinePayment>
 

@@ -5,7 +5,6 @@ author:
 build_requires:
   File::Find: 0
   File::Temp: 0
-  Test::Fatal: 0
   Test::Method: 0
   Test::More: 0.88
   Test::Requires::Env: 0
@@ -38,11 +37,20 @@ provides:
   Business::PaperlessTrans::Request::AuthorizeCard:
     file: lib/Business/PaperlessTrans/Request/AuthorizeCard.pm
     version: 0.001000
+  Business::PaperlessTrans::Request::ProcessACH:
+    file: lib/Business/PaperlessTrans/Request/ProcessACH.pm
+    version: 0.001000
   Business::PaperlessTrans::Request::ProcessCard:
     file: lib/Business/PaperlessTrans/Request/ProcessCard.pm
     version: 0.001000
   Business::PaperlessTrans::Request::Role::Authorization:
     file: lib/Business/PaperlessTrans/Request/Role/Authorization.pm
+    version: 0.001000
+  Business::PaperlessTrans::Request::Role::Money:
+    file: lib/Business/PaperlessTrans/Request/Role/Money.pm
+    version: 0.001000
+  Business::PaperlessTrans::Request::Role::Profile:
+    file: lib/Business/PaperlessTrans/Request/Role/Profile.pm
     version: 0.001000
   Business::PaperlessTrans::Request::TestConnection:
     file: lib/Business/PaperlessTrans/Request/TestConnection.pm
@@ -59,6 +67,9 @@ provides:
   Business::PaperlessTrans::RequestPart::Check:
     file: lib/Business/PaperlessTrans/RequestPart/Check.pm
     version: 0.001000
+  Business::PaperlessTrans::RequestPart::CustomFields:
+    file: lib/Business/PaperlessTrans/RequestPart/CustomFields.pm
+    version: 0.001000
   Business::PaperlessTrans::RequestPart::Identification:
     file: lib/Business/PaperlessTrans/RequestPart/Identification.pm
     version: 0.001000
@@ -71,11 +82,17 @@ provides:
   Business::PaperlessTrans::Response::AuthorizeCard:
     file: lib/Business/PaperlessTrans/Response/AuthorizeCard.pm
     version: 0.001000
+  Business::PaperlessTrans::Response::ProcessACH:
+    file: lib/Business/PaperlessTrans/Response/ProcessACH.pm
+    version: 0.001000
   Business::PaperlessTrans::Response::ProcessCard:
     file: lib/Business/PaperlessTrans/Response/ProcessCard.pm
     version: 0.001000
   Business::PaperlessTrans::Response::Role::Authorization:
     file: lib/Business/PaperlessTrans/Response/Role/Authorization.pm
+    version: 0.001000
+  Business::PaperlessTrans::Response::Role::IsApproved:
+    file: lib/Business/PaperlessTrans/Response/Role/IsApproved.pm
     version: 0.001000
   Business::PaperlessTrans::Response::TestConnection:
     file: lib/Business/PaperlessTrans/Response/TestConnection.pm
@@ -95,9 +112,6 @@ provides:
   Business::PaperlessTrans::Role::State:
     file: lib/Business/PaperlessTrans/Role/State.pm
     version: 0.001000
-  Business::PaperlessTrans::Role::Token:
-    file: lib/Business/PaperlessTrans/Role/Token.pm
-    version: 0.001000
 requires:
   Business::OnlinePayment: 0
   Carp: 0
@@ -111,14 +125,13 @@ requires:
   Moose::Util::TypeConstraints: 0
   MooseX::RemoteHelper: 0
   MooseX::RemoteHelper::CompositeSerialization: 0
-  MooseX::Types: 0
+  MooseX::RemoteHelper::Types: 0
   MooseX::Types::Common::Numeric: 0.001003
   MooseX::Types::Common::String: 0
   MooseX::Types::CreditCard: 0
   MooseX::Types::DateTime: 0
   MooseX::Types::Email: 0
   MooseX::Types::Locale::Currency: 0
-  MooseX::Types::Moose: 0
   MooseX::Types::Path::Class: 0
   MooseX::Types::UUID: 0
   MooseX::UndefTolerant: 0

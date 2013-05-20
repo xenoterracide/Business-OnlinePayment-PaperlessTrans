@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Fatal;
 use Test::Method;
 use Test::Requires::Env qw(
 	PERL_BUSINESS_BACKOFFICE_USERNAME
@@ -20,16 +19,16 @@ $tx->content(
 	login       => $ENV{PERL_BUSINESS_BACKOFFICE_USERNAME},
 	password    => $ENV{PERL_BUSINESS_BACKOFFICE_PASSWORD},
 	type        => 'CC',
-	action      => 'Authorization Only',
+	action      => 'Normal Authorization',
 	amount      => 1.00,
 	name        => 'Caleb Cushing',
-	card_number => '5454545454545454',
+	card_number => '6011000995500000',
 	expiration  => '1215',
 	cvv2        => '111',
 );
 
 $tx->submit;
 
-method_ok $tx, is_success => [], 1;
+method_ok $tx, is_success => [], 0;
 
 done_testing;

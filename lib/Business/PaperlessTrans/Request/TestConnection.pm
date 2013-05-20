@@ -7,11 +7,22 @@ our $VERSION = '0.001000'; # VERSION
 
 use Moose;
 
-extends 'Business::PaperlessTrans::Request';
+extends 'Business::PaperlessTrans::MessagePart';
+
+with qw(
+	MooseX::RemoteHelper::CompositeSerialization
+);
 
 sub _build_type {
 	return 'TestConnection';
 }
+
+has type => (
+	isa     => 'Str',
+	is      => 'ro',
+	lazy    => 1,
+	builder => '_build_type',
+);
 
 has token => (
 	remote_name => 'token',
@@ -35,6 +46,12 @@ Business::PaperlessTrans::Request::TestConnection - Test Connection
 =head1 VERSION
 
 version 0.001000
+
+=head1 DESCRIPTION
+
+The Test Connection Request has a different API from other requests and
+therefore does not inherit from Request, but conforms to the same external
+interfaces.
 
 =head1 AUTHOR
 

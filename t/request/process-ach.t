@@ -11,6 +11,17 @@ use Test::Requires::Env qw(
 my $req_prefix = 'Business::PaperlessTrans::Request';
 my $prefix     = $req_prefix . 'Part::';
 
+my $token
+	= new_ok( load_class( $prefix . 'AuthenticationToken' ) => [{
+		terminal_id  => $ENV{PERL_BUSINESS_BACKOFFICE_USERNAME},
+		terminal_key => $ENV{PERL_BUSINESS_BACKOFFICE_PASSWORD},
+	}]);
+
+my $client
+	= new_ok( load_class('Business::PaperlessTrans::Client') => [{
+		debug => $ENV{PERL_BUSINESS_BACKOFFICE_DEBUG},
+	}]);
+
 my $address
 	= new_ok( load_class( $prefix . 'Address' ) => [{
 		street  => '400 E. Royal Lane #201',
@@ -38,47 +49,32 @@ my $id
 		},
 	}]);
 
-my $card
-	= new_ok( load_class( $prefix . 'Card' ) => [{
-		number          => '4012888888881881',
-		security_code   => '999',
-		name_on_account => 'John Doe and Associates',
-		email_address   => 'JohnDoe@TestDomain.com',
+my $check
+	= new_ok( load_class( $prefix . 'Check') => [{
+		routing_number  => 111111118,
+		account_number  => 12121214,
+		name_on_account => 'Richard Simões',
 		address         => $address,
-		identification  => $id,
-		expiration      => {
-			month => '12',
-			year  => '2015',
-		},
 	}]);
 
-my $token
-	= new_ok( load_class( $prefix . 'AuthenticationToken' ) => [{
-		terminal_id  => $ENV{PERL_BUSINESS_BACKOFFICE_USERNAME},
-		terminal_key => $ENV{PERL_BUSINESS_BACKOFFICE_PASSWORD},
-	}]);
 
 my $req
-	= new_ok( load_class( $req_prefix . '::ProcessCard' ) => [{
-		amount       => 4.32,
+	= new_ok( load_class( $req_prefix . '::ProcessACH' ) => [{
+		amount       => 4.22,
 		currency     => 'USD',
-		card         => $card,
-		card_present => 0,
+		check_number => '022',
+		check        => $check,
 		test         => 1,
 		token        => $token,
 	}]);
 
-
-my $client
-	= new_ok( load_class('Business::PaperlessTrans::Client') => [{
-		debug => $ENV{PERL_BUSINESS_BACKOFFICE_DEBUG},
-	}]);
+method_ok $req, type => [], 'ProcessACH';
 
 my $res = $client->submit( $req );
 
-isa_ok $res, 'Business::PaperlessTrans::Response::ProcessCard';
+isa_ok $res, 'Business::PaperlessTrans::Response::ProcessACH';
 
-method_ok $res, is_approved => [], 1;
+method_ok $res, is_accepted => [], 1;
 method_ok $res, code        => [], 0;
 method_ok $res, message     => [], '';
 

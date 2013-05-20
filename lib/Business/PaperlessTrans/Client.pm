@@ -47,8 +47,10 @@ sub submit {
 sub _build_calls {
 	my $self = shift;
 
+	my @calls = qw( TestConnection AuthorizeCard ProcessCard ProcessACH );
+
 	my %calls;
-	foreach my $call ( qw( TestConnection AuthorizeCard ProcessCard ) ) {
+	foreach my $call ( @calls ) {
 		$calls{$call} = $self->_wsdl->compileClient( $call );
 	}
 	return \%calls;
