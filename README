@@ -65,7 +65,7 @@ SYNOPSIS
             ## ...
 
 SEE ALSO
-    BackOfficeAPI <http://support.paperlesstrans.com/api-overview.php>
+    BackOffice API <http://support.paperlesstrans.com/api-overview.php>
     Business::OnlinePayment
     Business::PaperlessTrans
 
