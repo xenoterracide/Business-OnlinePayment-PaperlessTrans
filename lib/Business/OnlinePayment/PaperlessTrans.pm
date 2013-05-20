@@ -78,6 +78,7 @@ sub submit {
 			$self->is_success(1);
 		}
 		else {
+			$self->is_success(0);
 			$self->error_message( $response->message );
 		}
 	}
