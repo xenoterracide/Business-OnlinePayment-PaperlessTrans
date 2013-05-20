@@ -11,7 +11,7 @@ use Carp;
 
 my $ns     = 'Business::PaperlessTrans::';
 
-sub submit {
+sub submit { ## no critic ( ProhibitExcessComplexity )
 	my ( $self ) = @_;
 
 	my %content = $self->content;
