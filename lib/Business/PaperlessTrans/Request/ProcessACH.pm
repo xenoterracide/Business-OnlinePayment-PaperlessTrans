@@ -30,7 +30,7 @@ has check_number => (
 	isa         => NumericCode,
 	is          => 'ro',
 );
-	
+
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: AuthorizeCard Request

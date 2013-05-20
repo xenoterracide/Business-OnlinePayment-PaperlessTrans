@@ -7,7 +7,7 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::RemoteHelper;
-use MooseX::RemoteHelper::Types qw( Bool ); 
+use MooseX::RemoteHelper::Types qw( Bool );
 
 has is_approved => (
 	remote_name => 'IsApproved',
