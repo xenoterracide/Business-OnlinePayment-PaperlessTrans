@@ -153,10 +153,6 @@ PaperlessTrans is a secure and seamless bridge between your IT infrastructure an
 the Paperless Transactions cloud. This service enables your organization to
 connect directly and securely for processing credit card and ACH transactions.
 
-=attr token
+=method submit
 
-L<Business::PaperlessTrans::RequestPart::AuthenticationToken>
-
-=attr test
-
-Set request to Test Mode when true
+	my $response = $client->submit( $request );
