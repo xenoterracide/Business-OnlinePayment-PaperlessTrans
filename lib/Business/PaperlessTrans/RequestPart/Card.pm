@@ -17,7 +17,7 @@ with qw(
 );
 
 use MooseX::Types::Common::String qw( NonEmptySimpleStr );
-use MooseX::Types::CreditCard qw(
+use MooseX::Types::CreditCard 0.002 qw(
 	CardNumber
 	CardExpiration
 	CardSecurityCode
