@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.001000'; # VERSION
+our $VERSION = '0.001001'; # VERSION
 
 use parent 'Business::OnlinePayment';
 use Class::Load 0.20 'load_class';
@@ -196,7 +196,7 @@ Business::OnlinePayment::PaperlessTrans - Interface to Paperless Transaction Cor
 
 =head1 VERSION
 
-version 0.001000
+version 0.001001
 
 =head1 SYNOPSIS
 

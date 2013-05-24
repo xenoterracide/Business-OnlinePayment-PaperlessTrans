@@ -45,7 +45,6 @@ share/svc.paperlesstrans.4.xsd
 share/svc.paperlesstrans.5.xsd
 share/svc.paperlesstrans.6.xsd
 share/svc.paperlesstrans.wsdl
-t/00-compile.t
 t/000-report-versions-tiny.t
 t/address.t
 t/authentication-token.t
@@ -64,7 +63,6 @@ t/identification.t
 t/processs-ach.t
 t/release-cpan-changes.t
 t/release-dist-manifest.t
-t/release-distmeta.t
 t/release-meta-json.t
 t/release-minimum-version.t
 t/release-mojibake.t

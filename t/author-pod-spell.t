@@ -29,15 +29,15 @@ Role
 Identification
 RequestPart
 Phone
+Response
+AuthorizeCard
 AuthenticationToken
 Request
 TestConnection
-Response
-AuthorizeCard
-Profile
-ProcessACH
 State
 EmailAddress
+Profile
+ProcessACH
 Authorization
 MessagePart
 Check
@@ -48,5 +48,5 @@ Client
 IsApproved
 ProcessCard
 NameOnAccount
-Card
 Money
+Card

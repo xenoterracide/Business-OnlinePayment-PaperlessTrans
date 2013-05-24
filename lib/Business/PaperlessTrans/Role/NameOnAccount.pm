@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.001000'; # VERSION
+our $VERSION = '0.001001'; # VERSION
 
 use Moose::Role;
 use MooseX::RemoteHelper;
@@ -29,7 +29,7 @@ Business::PaperlessTrans::Role::NameOnAccount - name associated with the account
 
 =head1 VERSION
 
-version 0.001000
+version 0.001001
 
 =head1 AUTHOR
 

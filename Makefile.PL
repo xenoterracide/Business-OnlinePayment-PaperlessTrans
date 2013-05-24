@@ -11,7 +11,7 @@ install_share dist => "share";
 
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "Interface to Paperless Transaction Corporation BackOffice API",
+  "ABSTRACT" => "Interface to Paperless Transaction Corporation BackOffice API\r",
   "AUTHOR" => "Caleb Cushing <xenoterracide\@gmail.com>",
   "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
@@ -54,13 +54,11 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
-    "File::Find" => 0,
-    "File::Temp" => 0,
     "Test::Method" => 0,
     "Test::More" => "0.88",
     "Test::Requires::Env" => 0
   },
-  "VERSION" => "0.001000",
+  "VERSION" => "0.001001",
   "test" => {
     "TESTS" => "t/*.t t/bop/cc/reject/*.t t/bop/cc/success/*.t t/bop/echeck/reject/*.t t/bop/echeck/success/*.t t/request/*.t"
   }

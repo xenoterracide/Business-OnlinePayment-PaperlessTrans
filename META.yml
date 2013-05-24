@@ -1,10 +1,8 @@
 ---
-abstract: 'Interface to Paperless Transaction Corporation BackOffice API'
+abstract: "Interface to Paperless Transaction Corporation BackOffice API\r"
 author:
   - 'Caleb Cushing <xenoterracide@gmail.com>'
 build_requires:
-  File::Find: 0
-  File::Temp: 0
   Test::Method: 0
   Test::More: 0.88
   Test::Requires::Env: 0
@@ -12,7 +10,7 @@ configure_requires:
   ExtUtils::MakeMaker: 6.30
   File::ShareDir::Install: 0.03
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.130880'
+generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.120921'
 license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -24,94 +22,94 @@ no_index:
 provides:
   Business::OnlinePayment::PaperlessTrans:
     file: lib/Business/OnlinePayment/PaperlessTrans.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Client:
     file: lib/Business/PaperlessTrans/Client.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::MessagePart:
     file: lib/Business/PaperlessTrans/MessagePart.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Request:
     file: lib/Business/PaperlessTrans/Request.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Request::AuthorizeCard:
     file: lib/Business/PaperlessTrans/Request/AuthorizeCard.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Request::ProcessACH:
     file: lib/Business/PaperlessTrans/Request/ProcessACH.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Request::ProcessCard:
     file: lib/Business/PaperlessTrans/Request/ProcessCard.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Request::Role::Authorization:
     file: lib/Business/PaperlessTrans/Request/Role/Authorization.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Request::Role::Money:
     file: lib/Business/PaperlessTrans/Request/Role/Money.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Request::Role::Profile:
     file: lib/Business/PaperlessTrans/Request/Role/Profile.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Request::TestConnection:
     file: lib/Business/PaperlessTrans/Request/TestConnection.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::RequestPart::Address:
     file: lib/Business/PaperlessTrans/RequestPart/Address.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::RequestPart::AuthenticationToken:
     file: lib/Business/PaperlessTrans/RequestPart/AuthenticationToken.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::RequestPart::Card:
     file: lib/Business/PaperlessTrans/RequestPart/Card.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::RequestPart::Check:
     file: lib/Business/PaperlessTrans/RequestPart/Check.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::RequestPart::CustomFields:
     file: lib/Business/PaperlessTrans/RequestPart/CustomFields.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::RequestPart::Identification:
     file: lib/Business/PaperlessTrans/RequestPart/Identification.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::RequestPart::Phone:
     file: lib/Business/PaperlessTrans/RequestPart/Phone.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Response:
     file: lib/Business/PaperlessTrans/Response.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Response::AuthorizeCard:
     file: lib/Business/PaperlessTrans/Response/AuthorizeCard.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Response::ProcessACH:
     file: lib/Business/PaperlessTrans/Response/ProcessACH.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Response::ProcessCard:
     file: lib/Business/PaperlessTrans/Response/ProcessCard.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Response::Role::Authorization:
     file: lib/Business/PaperlessTrans/Response/Role/Authorization.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Response::Role::IsApproved:
     file: lib/Business/PaperlessTrans/Response/Role/IsApproved.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Response::TestConnection:
     file: lib/Business/PaperlessTrans/Response/TestConnection.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Role::Address:
     file: lib/Business/PaperlessTrans/Role/Address.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Role::EmailAddress:
     file: lib/Business/PaperlessTrans/Role/EmailAddress.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Role::Identification:
     file: lib/Business/PaperlessTrans/Role/Identification.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Role::NameOnAccount:
     file: lib/Business/PaperlessTrans/Role/NameOnAccount.pm
-    version: 0.001000
+    version: 0.001001
   Business::PaperlessTrans::Role::State:
     file: lib/Business/PaperlessTrans/Role/State.pm
-    version: 0.001000
+    version: 0.001001
 requires:
   Business::OnlinePayment: 0
   Carp: 0
@@ -147,4 +145,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/business-onlinepayment-paperlesstrans/issues
   homepage: https://metacpan.org/release/Business-OnlinePayment-PaperlessTrans
   repository: git://github.com/xenoterracide/business-onlinepayment-paperlesstrans.git
-version: 0.001000
+version: 0.001001
