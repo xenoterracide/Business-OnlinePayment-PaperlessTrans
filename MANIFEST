@@ -20,7 +20,6 @@ lib/Business/PaperlessTrans/Request/TestConnection.pm
 lib/Business/PaperlessTrans/RequestPart/Address.pm
 lib/Business/PaperlessTrans/RequestPart/AuthenticationToken.pm
 lib/Business/PaperlessTrans/RequestPart/Card.pm
-lib/Business/PaperlessTrans/RequestPart/Card.pm~
 lib/Business/PaperlessTrans/RequestPart/Check.pm
 lib/Business/PaperlessTrans/RequestPart/CustomFields.pm
 lib/Business/PaperlessTrans/RequestPart/Identification.pm
@@ -48,7 +47,6 @@ share/svc.paperlesstrans.6.xsd
 share/svc.paperlesstrans.wsdl
 t/000-report-versions-tiny.t
 t/address.t
-t/address.t~
 t/authentication-token.t
 t/author-critic.t
 t/author-pod-spell.t
