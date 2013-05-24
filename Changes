@@ -1,5 +1,6 @@
 Revision history for Business-OnlinePayment-PaperlessTrans
 0.001001  2013-05-24
+	- fix dependency on MooseX::Types::CreditCard 0.002
 
 0.001000  2013-05-21
 	- initial release
