@@ -20,6 +20,7 @@ lib/Business/PaperlessTrans/Request/TestConnection.pm
 lib/Business/PaperlessTrans/RequestPart/Address.pm
 lib/Business/PaperlessTrans/RequestPart/AuthenticationToken.pm
 lib/Business/PaperlessTrans/RequestPart/Card.pm
+lib/Business/PaperlessTrans/RequestPart/Card.pm~
 lib/Business/PaperlessTrans/RequestPart/Check.pm
 lib/Business/PaperlessTrans/RequestPart/CustomFields.pm
 lib/Business/PaperlessTrans/RequestPart/Identification.pm

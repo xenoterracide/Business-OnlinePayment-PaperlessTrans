@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.001001'; # VERSION
+# VERSION
 
 use Moose;
 
@@ -17,7 +17,7 @@ with qw(
 );
 
 use MooseX::Types::Common::String qw( NonEmptySimpleStr );
-use MooseX::Types::CreditCard 0.002 qw(
+use MooseX::Types::CreditCard qw(
 	CardNumber
 	CardExpiration
 	CardSecurityCode
@@ -76,29 +76,3 @@ has _expiration_year => (
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: Card
-
-__END__
-
-=pod
-
-=head1 NAME
-
-Business::PaperlessTrans::RequestPart::Card - Card
-
-=head1 VERSION
-
-version 0.001001
-
-=head1 AUTHOR
-
-Caleb Cushing <xenoterracide@gmail.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is Copyright (c) 2013 by Caleb Cushing.
-
-This is free software, licensed under:
-
-  The Artistic License 2.0 (GPL Compatible)
-
-=cut
