@@ -48,6 +48,7 @@ share/svc.paperlesstrans.6.xsd
 share/svc.paperlesstrans.wsdl
 t/000-report-versions-tiny.t
 t/address.t
+t/address.t~
 t/authentication-token.t
 t/author-critic.t
 t/author-pod-spell.t
