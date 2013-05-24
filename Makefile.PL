@@ -11,7 +11,7 @@ install_share dist => "share";
 
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "Interface to Paperless Transaction Corporation BackOffice API\r",
+  "ABSTRACT" => "Interface to Paperless Transaction Corporation BackOffice API",
   "AUTHOR" => "Caleb Cushing <xenoterracide\@gmail.com>",
   "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
