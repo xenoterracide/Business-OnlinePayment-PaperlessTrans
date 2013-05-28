@@ -58,7 +58,7 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.88",
     "Test::Requires::Env" => 0
   },
-  "VERSION" => "0.001001",
+  "VERSION" => "0.001002",
   "test" => {
     "TESTS" => "t/*.t t/bop/cc/reject/*.t t/bop/cc/success/*.t t/bop/echeck/reject/*.t t/bop/echeck/success/*.t t/request/*.t"
   }
