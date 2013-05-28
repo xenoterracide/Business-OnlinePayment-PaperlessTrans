@@ -8,7 +8,6 @@ use namespace::autoclean;
 use Moose;
 use Class::Load 0.20 'load_class';
 use Module::Load 'load';
-use Data::Printer alias => 'Dumper';
 use Carp;
 
 use MooseX::Types::Path::Class qw( File Dir );
@@ -28,14 +27,19 @@ sub submit {
 		%request = ( req => $request->serialize );
 	}
 
-	Dumper %request if $self->debug >= 1;
+	if ($self->debug >= 1 ) {
+		load 'Data::Dumper', 'Dumper';
+		carp Dumper( \%request );
+	}
 
 	my ( $answer, $trace ) = $self->_get_call( $request->type )->( %request );
 
 	carp "REQUEST >\n"  . $trace->request->as_string  if $self->debug > 1;
 	carp "RESPONSE <\n" . $trace->response->as_string if $self->debug > 1;
 
-	Dumper $answer  if $self->debug >= 1;
+	if ( $self->debug >= 1 ) {
+		carp Dumper( $answer );
+	}
 
 	my $res = $answer->{parameters}{$request->type . 'Result'};
 
