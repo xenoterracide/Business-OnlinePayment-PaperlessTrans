@@ -7,11 +7,10 @@ our $VERSION = '0.001002'; # VERSION
 
 use Moose::Role;
 use MooseX::RemoteHelper;
-use MooseX::Types::Email          qw( EmailAddress      );
 
 has email_address => (
 	remote_name => 'EmailAddress',
-	isa         => EmailAddress,
+	isa         => 'Str',
 	is          => 'ro',
 );
 

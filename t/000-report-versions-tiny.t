@@ -51,6 +51,7 @@ sub pmver {
 eval { $v .= pmver('Business::OnlinePayment','any version') };
 eval { $v .= pmver('Carp','any version') };
 eval { $v .= pmver('Class::Load','0.20') };
+eval { $v .= pmver('DateTime','any version') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
 eval { $v .= pmver('File::ShareDir::Install','0.03') };
 eval { $v .= pmver('File::ShareDir::ProjectDistDir','any version') };
@@ -62,9 +63,6 @@ eval { $v .= pmver('Moose::Util::TypeConstraints','any version') };
 eval { $v .= pmver('MooseX::RemoteHelper','any version') };
 eval { $v .= pmver('MooseX::RemoteHelper::CompositeSerialization','any version') };
 eval { $v .= pmver('MooseX::RemoteHelper::Types','any version') };
-eval { $v .= pmver('MooseX::Types::Common::String','any version') };
-eval { $v .= pmver('MooseX::Types::DateTime','any version') };
-eval { $v .= pmver('MooseX::Types::Email','any version') };
 eval { $v .= pmver('MooseX::Types::Path::Class','any version') };
 eval { $v .= pmver('MooseX::UndefTolerant','any version') };
 eval { $v .= pmver('Pod::Coverage::TrustPod','any version') };

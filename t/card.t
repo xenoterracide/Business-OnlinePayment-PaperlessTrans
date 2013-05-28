@@ -5,6 +5,7 @@ use Test::Method;
 use Class::Load 0.20 'load_class';
 
 my $prefix = 'Business::PaperlessTrans::RequestPart::';
+my $dtc    = load_class('DateTime');
 
 my $address
 	= new_ok( load_class( $prefix . 'Address' ) => [{
@@ -21,16 +22,16 @@ my $id
 		state      => 'TX',
 		number     => '12345678',
 		address    => $address,
-		expiration => {
+		expiration => $dtc->new(
 			day   => 12,
 			month => 12,
 			year  => 2009,
-		},
-		date_of_birth => {
+		),
+		date_of_birth => $dtc->new(
 			day   => 12,
 			month => 12,
 			year  => 1965,
-		},
+		),
 	}]);
 
 my $obj

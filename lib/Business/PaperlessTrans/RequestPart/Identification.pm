@@ -14,8 +14,6 @@ with qw(
 	Business::PaperlessTrans::Role::Address
 );
 
-use MooseX::Types::DateTime qw( DateTime );
-
 my $dt_fmt
 	= sub {
 		my ( $attr, $instance ) = @_;
@@ -37,17 +35,15 @@ has number => (
 );
 
 has expiration => (
-	isa         => DateTime,
+	isa         => 'DateTime',
 	is          => 'ro',
-	coerce      => 1,
 	remote_name => 'Expiration',
 	serializer  => $dt_fmt,
 );
 
 has date_of_birth => (
-	isa         => DateTime,
+	isa         => 'DateTime',
 	is          => 'ro',
-	coerce      => 1,
 	remote_name => 'DOB',
 	serializer  => $dt_fmt,
 );
