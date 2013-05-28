@@ -42,10 +42,8 @@ my $obj
 		email_address   => 'JohnDoe@TestDomain.com',
 		address         => $address,
 		identification  => $id,
-		expiration      => {
-			month => '12',
-			year  => '2012',
-		},
+		expiration_month => '12',
+		expiration_year  => '2012',
 	}]);
 
 can_ok $obj, 'serialize';
