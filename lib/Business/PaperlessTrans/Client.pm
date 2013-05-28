@@ -27,16 +27,19 @@ sub submit {
 		%request = ( req => $request->serialize );
 	}
 
-	load('Data::Dumper', 'Dumper' ) if $self->debug >= 1;
-
-	carp Dumper %request if $self->debug >= 1;
+	if ($self->debug >= 1 ) {
+		load 'Data::Dumper', 'Dumper';
+		carp Dumper \%request;
+	}
 
 	my ( $answer, $trace ) = $self->_get_call( $request->type )->( %request );
 
 	carp "REQUEST >\n"  . $trace->request->as_string  if $self->debug > 1;
 	carp "RESPONSE <\n" . $trace->response->as_string if $self->debug > 1;
 
-	carp Dumper $answer  if $self->debug >= 1;
+	if ( $self->debug >= 1 ) {
+		carp Dumper $answer;
+	}
 
 	my $res = $answer->{parameters}{$request->type . 'Result'};
 
