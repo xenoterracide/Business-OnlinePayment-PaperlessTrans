@@ -36,7 +36,6 @@ my %WriteMakefileArgs = (
     "MooseX::RemoteHelper" => 0,
     "MooseX::RemoteHelper::CompositeSerialization" => 0,
     "MooseX::RemoteHelper::Types" => 0,
-    "MooseX::Types::Path::Class" => 0,
     "MooseX::UndefTolerant" => 0,
     "XML::Compile::SOAP11" => 0,
     "XML::Compile::Transport::SOAPHTTP" => 0,

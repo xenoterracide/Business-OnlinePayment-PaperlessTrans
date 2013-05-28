@@ -10,8 +10,6 @@ use Class::Load 0.20 'load_class';
 use Module::Load 'load';
 use Carp;
 
-use MooseX::Types::Path::Class qw( File Dir );
-
 use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
@@ -130,7 +128,7 @@ has _wsdl => (
 );
 
 has _wsdl_file => (
-	isa     => File,
+	isa     => 'Path::Class::File',
 	lazy    => 1,
 	is      => 'ro',
 	builder => '_build_wsdl_file',

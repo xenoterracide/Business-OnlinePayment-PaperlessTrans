@@ -63,7 +63,6 @@ eval { $v .= pmver('Moose::Util::TypeConstraints','any version') };
 eval { $v .= pmver('MooseX::RemoteHelper','any version') };
 eval { $v .= pmver('MooseX::RemoteHelper::CompositeSerialization','any version') };
 eval { $v .= pmver('MooseX::RemoteHelper::Types','any version') };
-eval { $v .= pmver('MooseX::Types::Path::Class','any version') };
 eval { $v .= pmver('MooseX::UndefTolerant','any version') };
 eval { $v .= pmver('Pod::Coverage::TrustPod','any version') };
 eval { $v .= pmver('Test::CPAN::Changes','0.19') };
