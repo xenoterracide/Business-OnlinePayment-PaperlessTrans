@@ -27,7 +27,7 @@ sub submit {
 		%request = ( req => $request->serialize );
 	}
 
-	load 'Data::Dumper', 'Dumper' if $self->debug >= 1;
+	load(qw(Data::Dumper Dumper) ) if $self->debug >= 1;
 
 	carp Dumper %request if $self->debug >= 1;
 
