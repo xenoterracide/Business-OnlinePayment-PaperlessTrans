@@ -48,10 +48,8 @@ my $card
 		email_address   => 'JohnDoe@TestDomain.com',
 		address         => $address,
 		identification  => $id,
-		expiration      => {
-			month => '12',
-			year  => '2015',
-		},
+		expiration_month => '12',
+		expiration_year  => '2015',
 	}]);
 
 my $token

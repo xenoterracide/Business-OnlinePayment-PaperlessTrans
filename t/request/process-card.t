@@ -42,16 +42,14 @@ my $id
 
 my $card
 	= new_ok( load_class( $prefix . 'Card' ) => [{
-		number          => '4012888888881881',
-		security_code   => '999',
-		name_on_account => 'John Doe and Associates',
-		email_address   => 'JohnDoe@TestDomain.com',
-		address         => $address,
-		identification  => $id,
-		expiration      => {
-			month => '12',
-			year  => '2015',
-		},
+		number           => '4012888888881881',
+		security_code    => '999',
+		name_on_account  => 'John Doe and Associates',
+		email_address    => 'JohnDoe@TestDomain.com',
+		address          => $address,
+		identification   => $id,
+		expiration_month => '12',
+		expiration_year  => '2015',
 	}]);
 
 my $token
