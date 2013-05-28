@@ -170,7 +170,7 @@ sub _content_to_card {
 		Identification  => $content{identification},
 		Address         => $content{address},
 		EmailAddress    => $content{email},
-		Expiration      => {
+		expiration      => {
 			month => $exp_month,
 			year  => '20' . $exp_year,
 		},
