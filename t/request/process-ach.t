@@ -3,10 +3,11 @@ use warnings;
 use Test::More;
 use Test::Method;
 use Class::Load 0.20 'load_class';
-use Test::Requires::Env qw(
-	PERL_BUSINESS_BACKOFFICE_USERNAME
-	PERL_BUSINESS_BACKOFFICE_PASSWORD
-);
+
+plan skip_all => 'PERL_BUSINESS_BACKOFFICE_USERNAME and/or'
+	. 'PERL_BUSINESS_BACKOFFICE_PASSWORD not defined in ENV'
+	unless defined $ENV{PERL_BUSINESS_BACKOFFICE_USERNAME}
+	&& defined $ENV{PERL_BUSINESS_BACKOFFICE_PASSWORD};
 
 my $req_prefix = 'Business::PaperlessTrans::Request';
 my $prefix     = $req_prefix . 'Part::';

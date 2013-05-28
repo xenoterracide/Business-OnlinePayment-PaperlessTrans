@@ -2,10 +2,12 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Method;
-use Test::Requires::Env qw(
-	PERL_BUSINESS_BACKOFFICE_USERNAME
-	PERL_BUSINESS_BACKOFFICE_PASSWORD
-);
+
+plan skip_all => 'PERL_BUSINESS_BACKOFFICE_USERNAME and/or'
+	. 'PERL_BUSINESS_BACKOFFICE_PASSWORD not defined in ENV'
+	unless defined $ENV{PERL_BUSINESS_BACKOFFICE_USERNAME}
+	&& defined $ENV{PERL_BUSINESS_BACKOFFICE_PASSWORD};
+
 use Class::Load 0.20 'load_class';
 
 my $tx = new_ok( load_class('Business::OnlinePayment') => [ 'PaperlessTrans' ]);
