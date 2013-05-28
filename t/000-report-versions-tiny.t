@@ -51,7 +51,6 @@ sub pmver {
 eval { $v .= pmver('Business::OnlinePayment','any version') };
 eval { $v .= pmver('Carp','any version') };
 eval { $v .= pmver('Class::Load','0.20') };
-eval { $v .= pmver('Data::Printer','any version') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
 eval { $v .= pmver('File::ShareDir::Install','0.03') };
 eval { $v .= pmver('File::ShareDir::ProjectDistDir','any version') };
