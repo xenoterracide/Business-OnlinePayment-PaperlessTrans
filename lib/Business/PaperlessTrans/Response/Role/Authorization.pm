@@ -7,11 +7,10 @@ our $VERSION = '0.001002'; # VERSION
 
 use Moose::Role;
 use MooseX::RemoteHelper;
-use MooseX::Types::Common::String qw( NonEmptySimpleStr );
 
 has authorization => (
 	remote_name => 'Authorization',
-	isa         => NonEmptySimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 );
 
