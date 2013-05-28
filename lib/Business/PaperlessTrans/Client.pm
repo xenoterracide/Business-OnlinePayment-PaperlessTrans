@@ -29,7 +29,7 @@ sub submit {
 
 	if ($self->debug >= 1 ) {
 		load 'Data::Dumper', 'Dumper';
-		carp Dumper \%request;
+		carp Dumper( \%request );
 	}
 
 	my ( $answer, $trace ) = $self->_get_call( $request->type )->( %request );
@@ -38,7 +38,7 @@ sub submit {
 	carp "RESPONSE <\n" . $trace->response->as_string if $self->debug > 1;
 
 	if ( $self->debug >= 1 ) {
-		carp Dumper $answer;
+		carp Dumper( $answer );
 	}
 
 	my $res = $answer->{parameters}{$request->type . 'Result'};
