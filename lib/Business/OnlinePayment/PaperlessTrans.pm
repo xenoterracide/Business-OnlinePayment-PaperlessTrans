@@ -23,16 +23,16 @@ sub submit { ## no critic ( ProhibitExcessComplexity )
 	my $address = $self->_content_to_address( %content );
 
 	my %args = (
-		amount       => $content{amount},
-		currency     => $content{currency},
-		token        => $token,
+		Amount       => $content{amount},
+		Currency     => $content{currency},
+		Token        => $token,
 		test         => $self->test_transaction ? 1 : 0,
 	);
 
 	my %payment_content = (
 		%content,
-		identification => $ident,
-		address        => $address,
+		Identification => $ident,
+		Address        => $address,
 	);
 
 	if ( $trans_t eq 'cc' ) {
