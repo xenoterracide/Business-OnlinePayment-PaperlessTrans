@@ -8,31 +8,29 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::PaperlessTrans::MessagePart';
 
-use MooseX::Types::Common::String qw( SimpleStr );
 use Moose::Util::TypeConstraints  qw( enum      );
-use MooseX::Types::UUID           qw( UUID      );
 
 has transaction_id => (
 	remote_name => 'TransactionID',
-	isa         => UUID|SimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 );
 
 has code => (
 	remote_name => 'ResponseCode',
-	isa         => enum( [qw( 0 1 2 )] ),
+	isa         => 'Int',
 	is          => 'ro',
 );
 
 has message => (
 	remote_name => 'Message',
-	isa         => SimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 );
 
 has timestamp => (
 	remote_name => 'DateTimeStamp',
-	isa         => SimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 );
 

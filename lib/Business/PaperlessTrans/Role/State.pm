@@ -7,10 +7,9 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::RemoteHelper;
-use MooseX::Types::Common::String qw( NonEmptySimpleStr );
 
 has state => (
-	isa         => NonEmptySimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 	remote_name => 'State',
 );

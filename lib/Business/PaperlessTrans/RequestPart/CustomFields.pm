@@ -9,12 +9,10 @@ use Moose;
 extends 'Business::PaperlessTrans::MessagePart';
 with 'MooseX::RemoteHelper::CompositeSerialization';
 
-use MooseX::Types::Common::String qw( NonEmptySimpleStr );
-
 foreach my $i ( 1..30 ) {
 	has "field_$i" => (
 		remote_name => "Field_$i",
-		isa         => NonEmptySimpleStr,
+		isa         => 'Str',
 		is          => 'ro',
 	);
 }

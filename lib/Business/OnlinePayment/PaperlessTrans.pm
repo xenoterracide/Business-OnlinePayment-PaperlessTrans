@@ -103,7 +103,6 @@ sub _content_to_ident {
 	my %mapped = (
 		id_type       => 1, # B:OP 3.02 there is only drivers license
 		number        => $content{license_num},
-		date_of_birth => $content{license_dob},
 	);
 
 	return load_class( $ns . 'RequestPart::Identification')->new( \%mapped );
@@ -164,16 +163,14 @@ sub _content_to_card {
 	my ( $exp_month, $exp_year ) = ( $1, $2 ); ## no critic ( ProhibitCaptureWithoutTest )
 
 	my %mapped = (
-		name_on_account => $content{name},
-		number          => $content{card_number},
-		security_code   => $content{cvv2},
-		identification  => $content{identification},
-		address         => $content{address},
-		email_address   => $content{email},
-		expiration      => {
-			month => $exp_month,
-			year  => '20' . $exp_year,
-		},
+		name_on_account  => $content{name},
+		number           => $content{card_number},
+		security_code    => $content{cvv2},
+		identification   => $content{identification},
+		address          => $content{address},
+		email_address    => $content{email},
+		expiration_month => $exp_month,
+		expiration_year  => '20' . $exp_year,
 	);
 
 	$mapped{track_data} = $content{track1} . $content{track2}

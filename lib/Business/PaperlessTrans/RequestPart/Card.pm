@@ -16,61 +16,38 @@ with qw(
 	Business::PaperlessTrans::Role::EmailAddress
 );
 
-use MooseX::Types::Common::String qw( NonEmptySimpleStr );
-use MooseX::Types::CreditCard 0.002 qw(
-	CardNumber
-	CardExpiration
-	CardSecurityCode
-);
-
 has number => (
-	isa         => CardNumber,
+	isa         => 'Str',
 	is          => 'ro',
 	required    => 1,
 	remote_name => 'CardNumber',
 );
 
 has security_code => (
-    isa         => CardSecurityCode,
+    isa         => 'Str',
     remote_name => 'SecurityCode',
     predicate   => 'has_security_code',
     is          => 'ro',
 );
 
 has track_data => (
-	isa         => NonEmptySimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 	remote_name => 'TrackData',
 );
 
-has expiration => (
-	isa         => CardExpiration,
-	is          => 'ro',
-	required    => 1,
-	coerce      => 1,
-	handles     => [qw( month year )],
-);
-
-has _expiration_month => (
+has expiration_month => (
 	isa         => 'Int',
 	remote_name => 'ExpirationMonth',
 	is          => 'ro',
-	lazy        => 1,
-	reader      => undef,
-	writer      => undef,
-	init_arg    => undef,
-	default     => sub { shift->expiration->month },
+	required    => 1,
 );
 
-has _expiration_year => (
-	isa         => 'Int',
+has expiration_year => (
 	remote_name => 'ExpirationYear',
+	isa         => 'Int',
 	is          => 'ro',
-	lazy        => 1,
-	reader      => undef,
-	writer      => undef,
-	init_arg    => undef,
-	default     => sub { shift->expiration->year },
+	required    => 1,
 );
 
 __PACKAGE__->meta->make_immutable;

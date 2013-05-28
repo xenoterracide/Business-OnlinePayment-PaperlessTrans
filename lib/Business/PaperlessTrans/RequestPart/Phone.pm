@@ -9,17 +9,15 @@ use Moose;
 
 extends 'Business::PaperlessTrans::MessagePart';
 
-use MooseX::Types::Common::String qw( NonEmptySimpleStr );
-
 has number => (
 	remote_name => 'Number',
-	isa         => NonEmptySimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 );
 
 has type => (
 	remote_name => 'Type',
-	isa         => NonEmptySimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 );
 

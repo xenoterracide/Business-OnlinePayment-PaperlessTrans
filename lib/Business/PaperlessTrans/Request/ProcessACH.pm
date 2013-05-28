@@ -6,7 +6,6 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use MooseX::Types::Common::String qw( NumericCode );
 
 extends 'Business::PaperlessTrans::Request';
 
@@ -27,7 +26,7 @@ has check => (
 
 has check_number => (
 	remote_name => 'CheckNumber',
-	isa         => NumericCode,
+	isa         => 'Str',
 	is          => 'ro',
 );
 
