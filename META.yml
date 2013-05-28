@@ -5,7 +5,6 @@ author:
 build_requires:
   Test::Method: 0
   Test::More: 0.88
-  Test::Requires::Env: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
   File::ShareDir::Install: 0.03

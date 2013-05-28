@@ -78,7 +78,6 @@ eval { $v .= pmver('Test::Method','any version') };
 eval { $v .= pmver('Test::More','0.88') };
 eval { $v .= pmver('Test::Pod','1.41') };
 eval { $v .= pmver('Test::Pod::Coverage','1.08') };
-eval { $v .= pmver('Test::Requires::Env','any version') };
 eval { $v .= pmver('XML::Compile::SOAP11','any version') };
 eval { $v .= pmver('XML::Compile::Transport::SOAPHTTP','any version') };
 eval { $v .= pmver('XML::Compile::WSDL11','any version') };

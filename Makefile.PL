@@ -55,8 +55,7 @@ my %WriteMakefileArgs = (
   },
   "TEST_REQUIRES" => {
     "Test::Method" => 0,
-    "Test::More" => "0.88",
-    "Test::Requires::Env" => 0
+    "Test::More" => "0.88"
   },
   "VERSION" => "0.001002",
   "test" => {

@@ -71,8 +71,7 @@
       "test" : {
          "requires" : {
             "Test::Method" : "0",
-            "Test::More" : "0.88",
-            "Test::Requires::Env" : "0"
+            "Test::More" : "0.88"
          }
       }
    },
