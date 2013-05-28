@@ -45,6 +45,7 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
+    "DateTime" => 0,
     "Test::Method" => 0,
     "Test::More" => "0.88"
   },
