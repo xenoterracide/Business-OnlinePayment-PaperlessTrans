@@ -10,17 +10,14 @@ use Moose;
 extends 'Business::PaperlessTrans::MessagePart';
 with qw( MooseX::RemoteHelper::CompositeSerialization );
 
-use MooseX::Types::Common::String qw( NumericCode );
-use MooseX::Types::UUID qw( UUID );
-
 has terminal_id => (
-	isa         => UUID,
+	isa         => 'Str',
 	is          => 'ro',
 	remote_name => 'TerminalID',
 );
 
 has terminal_key => (
-	isa         => NumericCode,
+	isa         => 'Num',
 	is          => 'ro',
 	remote_name => 'TerminalKey',
 );

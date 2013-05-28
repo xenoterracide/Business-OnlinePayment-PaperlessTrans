@@ -16,18 +16,16 @@ with qw(
 	Business::PaperlessTrans::Role::EmailAddress
 );
 
-use MooseX::Types::Common::String qw( NumericCode );
-
 has routing_number => (
 	remote_name => 'RoutingNumber',
-	isa         => NumericCode,
+	isa         => 'Num',
 	is          => 'ro',
 	required    => 1,
 );
 
 has account_number => (
 	remote_name => 'AccountNumber',
-	isa         => NumericCode,
+	isa         => 'Num',
 	is          => 'ro',
 	required    => 1,
 );

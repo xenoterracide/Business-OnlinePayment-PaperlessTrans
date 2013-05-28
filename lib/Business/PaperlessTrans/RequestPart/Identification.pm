@@ -14,9 +14,7 @@ with qw(
 	Business::PaperlessTrans::Role::Address
 );
 
-use MooseX::Types::Common::String  qw( NonEmptySimpleStr );
-use MooseX::Types::Common::Numeric qw( SingleDigit       );
-use MooseX::Types::DateTime        qw( DateTime          );
+use MooseX::Types::DateTime qw( DateTime );
 
 my $dt_fmt
 	= sub {
@@ -25,14 +23,14 @@ my $dt_fmt
 	};
 
 has id_type => (
-	isa         => SingleDigit,
+	isa         => 'Int',
 	is          => 'ro',
 	required    => 1,
 	remote_name => 'IDType',
 );
 
 has number => (
-	isa         => NonEmptySimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 	remote_name => 'Number',
 	required    => 1,

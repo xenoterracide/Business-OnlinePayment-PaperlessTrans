@@ -7,19 +7,17 @@ our $VERSION = '0.001002'; # VERSION
 
 use Moose::Role;
 use MooseX::RemoteHelper;
-use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
-use MooseX::Types::Locale::Currency qw( CurrencyCode      );
 
 has amount => (
 	remote_name => 'Amount',
-	isa         => PositiveOrZeroNum,
+	isa         => 'Num',
 	is          => 'ro',
 	required    => 1,
 );
 
 has currency => (
 	remote_name => 'Currency',
-	isa         => CurrencyCode,
+	isa         => 'Str',
 	is          => 'ro',
 	required    => 1,
 );

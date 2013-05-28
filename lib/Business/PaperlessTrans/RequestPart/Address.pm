@@ -14,28 +14,26 @@ with qw(
 	Business::PaperlessTrans::Role::State
 );
 
-use MooseX::Types::Common::String qw( NonEmptySimpleStr );
-
 has street => (
-	isa         => NonEmptySimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 	remote_name => 'Street',
 );
 
 has city => (
-	isa         => NonEmptySimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 	remote_name => 'City',
 );
 
 has country => (
-	isa         => NonEmptySimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 	remote_name => 'Country',
 );
 
 has zip => (
-	isa         => NonEmptySimpleStr,
+	isa         => 'Str',
 	is          => 'ro',
 	remote_name => 'Zip',
 );
