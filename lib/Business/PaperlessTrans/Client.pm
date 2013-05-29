@@ -79,7 +79,7 @@ my $dist = 'Business-OnlinePayment-PaperlessTrans';
 
 sub _dist_dir_new {
 	my $dist = shift;
- 
+
 	## dev environment
 	my $dev = File::Spec->catdir('share');
 	return $dev if -d $dev;
