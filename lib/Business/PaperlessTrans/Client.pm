@@ -105,6 +105,7 @@ sub _dist_dir_new {
 }
 
 sub _dist_dir_old { ## no critic
+## no critic
 	my $dist = shift;
 
 	# Create the subpath
