@@ -59,6 +59,7 @@ t/bop/cc/success/normal-authorization.t
 t/bop/echeck/reject/normal-authorization.t
 t/bop/echeck/success/normal-authorization.t
 t/card.t
+t/clients.t
 t/identification.t
 t/processs-ach.t
 t/release-cpan-changes.t
