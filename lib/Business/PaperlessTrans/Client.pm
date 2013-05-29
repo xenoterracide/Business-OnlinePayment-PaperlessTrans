@@ -99,18 +99,18 @@ sub _dist_dir_new {
 		}
 		return $dir;
 	}
- 
+
 	return undef;
 }
 
 sub _dist_dir_old {
 	my $dist = shift;
- 
+
 	# Create the subpath
 	my $path = File::Spec->catdir(
 		'auto', split( /-/, $dist ),
 	);
- 
+
 	# Find the full dir within @INC
 	foreach my $inc ( @INC ) {
 		next unless defined $inc and ! ref $inc;
@@ -121,7 +121,7 @@ sub _dist_dir_old {
 		}
 		return $dir;
 	}
- 
+
 	return undef;
 }
 
