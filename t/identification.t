@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Method;
 use Class::Load 0.20 'load_class';
 
 my $prefix = 'Business::PaperlessTrans::RequestPart::';
@@ -36,7 +35,7 @@ my $obj
 
 can_ok $obj, 'serialize';
 
-method_ok $obj, serialize => [], {
+is_deeply $obj->serialize, {
 	IDType     => 1,
 	State      => 'TX',
 	Number     => '12345678',

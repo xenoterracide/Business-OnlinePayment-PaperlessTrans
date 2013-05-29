@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Method;
 use Class::Load 0.20 'load_class';
 
 plan skip_all => 'PERL_BUSINESS_BACKOFFICE_USERNAME and/or'
@@ -35,6 +34,6 @@ $tx->content(
 
 $tx->submit;
 
-method_ok $tx, is_success => [], 1;
+ok $tx->is_success;
 
 done_testing;

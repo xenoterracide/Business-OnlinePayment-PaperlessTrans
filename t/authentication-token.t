@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Method;
 use Class::Load 0.20 'load_class';
 
 my $prefix = 'Business::PaperlessTrans::RequestPart::';
@@ -14,7 +13,7 @@ my $auth
 
 can_ok $auth, 'serialize';
 
-method_ok $auth, serialize => [], {
+is_deeply $auth->serialize, {
 	TerminalID  => '00000000-0000-0000-0000-000000000000',
 	TerminalKey => '000000000',
 };

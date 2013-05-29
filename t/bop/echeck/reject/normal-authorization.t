@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Method;
 
 plan skip_all => 'PERL_BUSINESS_BACKOFFICE_USERNAME and/or'
 	. 'PERL_BUSINESS_BACKOFFICE_PASSWORD not defined in ENV'
@@ -36,6 +35,6 @@ $tx->content(
 
 $tx->submit;
 
-method_ok $tx, is_success => [], 0;
+ok ! $tx->is_success;
 
 done_testing;
