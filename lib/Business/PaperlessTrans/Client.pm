@@ -220,6 +220,11 @@ connect directly and securely for processing credit card and ACH transactions.
 
 	my $response = $client->submit( $request );
 
+=head1 ACKNOWLEDGMENTS
+
+This code contains pieces of L<File::ShareDir> that were directly copied and
+pasted. Thanks ot Adam Kennedy for creating it.
+
 =head1 AUTHOR
 
 Caleb Cushing <xenoterracide@gmail.com>
