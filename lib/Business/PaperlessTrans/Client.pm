@@ -140,9 +140,6 @@ sub _build_xsd_files {
 	my $dir = _dist_dir_new( $dist );
 	$dir  ||= _dist_dir_old( $dist );
 
-
-	return $path;
-
 	my @xsd;
 	foreach ( 0..6 ) {
 		my $file = File::Spec->catfile( $dir, "svc.paperlesstrans.$_.xsd" );
