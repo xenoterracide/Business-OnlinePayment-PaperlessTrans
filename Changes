@@ -1,5 +1,8 @@
 Revision history for Business-OnlinePayment-PaperlessTrans
 0.001002  2013-05-28
+	- remove Test::Method, Test::Requires::Env,
+	  File::ShareDir::ProjectDistDir, MooseX::Types::*, and Data::Printer
+	  dependendencies per IVAN
 
 0.001001  2013-05-24
 	- fix dependency on MooseX::Types::CreditCard 0.002
