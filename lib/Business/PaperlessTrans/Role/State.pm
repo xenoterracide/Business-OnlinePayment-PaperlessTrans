@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.001002'; # VERSION
+our $VERSION = '0.001003'; # VERSION
 
 use Moose::Role;
 use MooseX::RemoteHelper;
@@ -27,7 +27,7 @@ Business::PaperlessTrans::Role::State - State
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 AUTHOR
 

@@ -49,7 +49,7 @@ my %WriteMakefileArgs = (
     "DateTime" => 0,
     "Test::More" => "0.88"
   },
-  "VERSION" => "0.001002",
+  "VERSION" => "0.001003",
   "test" => {
     "TESTS" => "t/*.t t/bop/cc/reject/*.t t/bop/cc/success/*.t t/bop/echeck/reject/*.t t/bop/echeck/success/*.t t/request/*.t"
   }
