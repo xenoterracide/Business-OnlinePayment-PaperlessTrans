@@ -78,6 +78,7 @@ sub _build_wsdl {
 my $dist = 'Business-OnlinePayment-PaperlessTrans';
 
 sub _dist_dir_new {
+## no critic
 	my $dist = shift;
 
 	## dev environment
