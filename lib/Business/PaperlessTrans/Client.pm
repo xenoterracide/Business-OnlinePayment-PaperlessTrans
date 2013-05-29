@@ -88,7 +88,7 @@ sub _dist_dir_new {
 	my $path = File::Spec->catdir(
 		'auto', 'share', 'dist', $dist,
 	);
- 
+
 	# Find the full dir withing @INC
 	foreach my $inc ( @INC ) {
 		next unless defined $inc and ! ref $inc;
