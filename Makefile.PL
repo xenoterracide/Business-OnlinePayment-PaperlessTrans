@@ -27,6 +27,7 @@ my %WriteMakefileArgs = (
     "Carp" => 0,
     "Class::Load" => "0.20",
     "File::ShareDir::ProjectDistDir" => 0,
+    "File::Spec" => 0,
     "LWP::Protocol::https" => 0,
     "Module::Load" => 0,
     "Moose" => 0,

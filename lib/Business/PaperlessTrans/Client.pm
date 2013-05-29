@@ -10,6 +10,8 @@ use Class::Load 0.20 'load_class';
 use Module::Load 'load';
 use Carp;
 
+use File::Spec;
+
 use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
@@ -73,29 +75,77 @@ sub _build_wsdl {
 	return $wsdl;
 }
 
-sub _build_wsdl_file {
-	load 'File::ShareDir::ProjectDistDir', 'dist_file';
+my $dist = 'Business-OnlinePayment-PaperlessTrans';
 
-	return load_class('Path::Class::File')->new(
-		dist_file(
-			'Business-OnlinePayment-PaperlessTrans',
-			'svc.paperlesstrans.wsdl'
-		)
+sub _dist_dir_new {
+	my $dist = shift;
+ 
+	## dev environment
+	my $dev = File::Spec->catdir('share');
+	return $dev if -d $dev;
+
+	# Create the subpath
+	my $path = File::Spec->catdir(
+		'auto', 'share', 'dist', $dist,
 	);
+ 
+	# Find the full dir withing @INC
+	foreach my $inc ( @INC ) {
+		next unless defined $inc and ! ref $inc;
+		my $dir = File::Spec->catdir( $inc, $path );
+		next unless -d $dir;
+		unless ( -r $dir ) {
+			Carp::croak("Found directory '$dir', but no read permissions");
+		}
+		return $dir;
+	}
+ 
+	return undef;
+}
+
+sub _dist_dir_old {
+	my $dist = shift;
+	my $file = shift;
+ 
+	# Create the subpath
+	my $path = File::Spec->catfile(
+		'auto', split( /-/, $dist ), $file,
+	);
+ 
+    # Find the full dir withing @INC
+	foreach my $inc ( @INC ) {
+		next unless defined $inc and ! ref $inc;
+		my $full = File::Spec->catdir( $inc, $path );
+		next unless -e $full;
+		unless ( -r $full ) {
+			Carp::croak("Directory '$full', no read permissions");
+		}
+		return $full;
+	}
+ 
+	# Couldn't find it
+	Carp::croak("Failed to find shared file '$file' for dist '$dist'");
+}
+
+sub _build_wsdl_file {
+	my $dir = _dist_dir_new( $dist );
+	$dir  ||= _dist_dir_old( $dist );
+
+	my $path = File::Spec->catfile( $dir, 'svc.paperlesstrans.wsdl' );
+
+	return $path;
 }
 
 sub _build_xsd_files {
-	load 'File::ShareDir::ProjectDistDir', 'dist_file';
+	my $dir = _dist_dir_new( $dist );
+	$dir  ||= _dist_dir_old( $dist );
+
+
+	return $path;
 
 	my @xsd;
 	foreach ( 0..6 ) {
-		my $file
-			= load_class('Path::Class::File')->new(
-				dist_file(
-					'Business-OnlinePayment-PaperlessTrans',
-					"svc.paperlesstrans.$_.xsd"
-				)
-			);
+		my $file = File::Spec->catfile( $dir, "svc.paperlesstrans.$_.xsd" );
 
 		push @xsd, $file;
 	}

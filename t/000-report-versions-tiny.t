@@ -55,6 +55,7 @@ eval { $v .= pmver('DateTime','any version') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
 eval { $v .= pmver('File::ShareDir::Install','0.03') };
 eval { $v .= pmver('File::ShareDir::ProjectDistDir','any version') };
+eval { $v .= pmver('File::Spec','any version') };
 eval { $v .= pmver('LWP::Protocol::https','any version') };
 eval { $v .= pmver('Module::Load','any version') };
 eval { $v .= pmver('Moose','any version') };
