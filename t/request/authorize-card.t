@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Method;
 use Class::Load 0.20 'load_class';
 
 plan skip_all => 'PERL_BUSINESS_BACKOFFICE_USERNAME and/or'
@@ -78,8 +77,8 @@ my $res = $client->submit( $req );
 
 isa_ok $res, 'Business::PaperlessTrans::Response::AuthorizeCard';
 
-method_ok $res, is_approved => [], 1;
-method_ok $res, code        => [], 0;
-method_ok $res, message     => [], '';
+ok $res->is_approved;
+is $res->code,     0;
+is $res->message, '';
 
 done_testing;

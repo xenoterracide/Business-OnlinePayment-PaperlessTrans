@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Method;
 use Class::Load 0.20 'load_class';
 
 plan skip_all => 'PERL_BUSINESS_BACKOFFICE_USERNAME and/or'
@@ -70,14 +69,14 @@ my $req
 		token        => $token,
 	}]);
 
-method_ok $req, type => [], 'ProcessACH';
+is $req->type, 'ProcessACH';
 
 my $res = $client->submit( $req );
 
 isa_ok $res, 'Business::PaperlessTrans::Response::ProcessACH';
 
-method_ok $res, is_accepted => [], 1;
-method_ok $res, code        => [], 0;
-method_ok $res, message     => [], '';
+ok $res->is_accepted;
+is $res->code,     0;
+is $res->message, '';
 
 done_testing;

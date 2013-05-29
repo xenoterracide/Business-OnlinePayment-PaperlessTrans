@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Method;
 use Class::Load 0.20 'load_class';
 
 my $req_prefix = 'Business::PaperlessTrans::Request';
@@ -62,9 +61,9 @@ my $obj
 
 can_ok    $obj, 'serialize';
 can_ok    $obj, 'type';
-method_ok $obj, type => [], 'ProcessACH';
+is        $obj->type, 'ProcessACH';
 
-method_ok $obj, serialize => [], {
+is_deeply $obj->serialize, {
 	Token => {
 		TerminalID  => '00000000-0000-0000-0000-000000000000',
 		TerminalKey => '000000000',
