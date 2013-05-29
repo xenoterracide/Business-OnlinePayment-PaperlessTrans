@@ -77,7 +77,7 @@ sub _build_wsdl {
 
 my $dist = 'Business-OnlinePayment-PaperlessTrans';
 
-sub _dist_dir_new {
+sub _dist_dir_new { ## no critic
 	my $dist = shift;
 
 	## dev environment
@@ -103,7 +103,7 @@ sub _dist_dir_new {
 	return undef;
 }
 
-sub _dist_dir_old {
+sub _dist_dir_old { ## no critic
 	my $dist = shift;
 
 	# Create the subpath
