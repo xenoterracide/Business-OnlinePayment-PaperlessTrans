@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 {{$NEXT}}
 
+0.001003  2013-05-28
+	- File::ShareDir::ProjectDistDir was still in dist.ini
+
 0.001002  2013-05-28
 	- remove Test::Method, Test::Requires::Env,
 	  File::ShareDir::ProjectDistDir, MooseX::Types::*, and Data::Printer
