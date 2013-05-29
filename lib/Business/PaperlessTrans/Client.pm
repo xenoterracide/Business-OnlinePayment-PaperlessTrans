@@ -65,11 +65,11 @@ sub _build_wsdl {
 
 	my $wsdl
 		= XML::Compile::WSDL11->new(
-			$self->_wsdl_file->stringify,
+			$self->_wsdl_file,
 		);
 
 	foreach my $xsd ( $self->_list_xsd_files ) {
-		$wsdl->importDefinitions( $xsd->stringify );
+		$wsdl->importDefinitions( $xsd );
 	}
 
 	return $wsdl;
@@ -105,26 +105,24 @@ sub _dist_dir_new {
 
 sub _dist_dir_old {
 	my $dist = shift;
-	my $file = shift;
  
 	# Create the subpath
-	my $path = File::Spec->catfile(
-		'auto', split( /-/, $dist ), $file,
+	my $path = File::Spec->catdir(
+		'auto', split( /-/, $dist ),
 	);
  
-    # Find the full dir withing @INC
+	# Find the full dir within @INC
 	foreach my $inc ( @INC ) {
 		next unless defined $inc and ! ref $inc;
-		my $full = File::Spec->catdir( $inc, $path );
-		next unless -e $full;
-		unless ( -r $full ) {
-			Carp::croak("Directory '$full', no read permissions");
+		my $dir = File::Spec->catdir( $inc, $path );
+		next unless -d $dir;
+		unless ( -r $dir ) {
+			Carp::croak("Found directory '$dir', but no read permissions");
 		}
-		return $full;
+		return $dir;
 	}
  
-	# Couldn't find it
-	Carp::croak("Failed to find shared file '$file' for dist '$dist'");
+	return undef;
 }
 
 sub _build_wsdl_file {
@@ -175,14 +173,14 @@ has _wsdl => (
 );
 
 has _wsdl_file => (
-	isa     => 'Path::Class::File',
+	isa     => 'Str',
 	lazy    => 1,
 	is      => 'ro',
 	builder => '_build_wsdl_file',
 );
 
 has _xsd_files => (
-	isa     => 'ArrayRef[Path::Class::File]',
+	isa     => 'ArrayRef[Str]',
 	traits  => ['Array'],
 	lazy    => 1,
 	is      => 'ro',
