@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.001003'; # VERSION
+our $VERSION = '0.001004'; # VERSION
 
 use Moose;
 extends 'Business::PaperlessTrans::Response';
@@ -28,7 +28,7 @@ Business::PaperlessTrans::Response::TestConnection - Test Connection Response
 
 =head1 VERSION
 
-version 0.001003
+version 0.001004
 
 =head1 AUTHOR
 
