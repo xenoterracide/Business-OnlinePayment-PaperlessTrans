@@ -1,5 +1,6 @@
 Revision history for Business-OnlinePayment-PaperlessTrans
 0.001004  2013-06-06
+	- remove Moose, and Split from Business::PaperlessTrans
 
 0.001003  2013-05-28
 	- File::ShareDir::ProjectDistDir was still in dist.ini
