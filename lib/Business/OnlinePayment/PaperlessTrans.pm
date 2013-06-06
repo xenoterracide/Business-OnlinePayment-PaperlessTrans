@@ -265,7 +265,9 @@ sub _content_to_card {
 		action         => 'Normal Authorization',
 		check_number   => '132',
 		amount         => 1.32,
+		currency       => 'USD',
 		routing_code   => 111111118,
+		account_name   => 'Caleb Cushing',,
 		account_number => 12121214,
 		name           => 'Caleb Cushing',
 		address        => '400 E. Royal Lane #201',
@@ -294,12 +296,13 @@ sub _content_to_card {
 
 	# start all over again credit cards
 	$tx->content(
-		login          => 'TerminalID',
-		password       => 'TerminalKey',
-		debug          => '1', # 0, 1, 2
+		login       => 'TerminalID',
+		password    => 'TerminalKey',
+		debug       => '1', # 0, 1, 2
 		type        => 'CC',
 		action      => 'Authorization Only',
 		amount      => 1.00,
+		currency    => 'USD',
 		name        => 'Caleb Cushing',
 		card_number => '5454545454545454',
 		expiration  => '1215',
