@@ -6,27 +6,37 @@ use warnings;
 our $VERSION = '0.001004'; # VERSION
 
 use parent 'Business::OnlinePayment';
-use Class::Load 0.20 'load_class';
-use Carp;
 
-my $ns     = 'Business::PaperlessTrans::';
+use XML::Compile::WSDL11;
+use XML::Compile::SOAP11;
+use XML::Compile::Transport::SOAPHTTP;
+use Module::Load   qw( load         );
+use File::ShareDir qw( dist_file    );
+use Carp           qw( carp confess );
+
+my $dist = 'Business-OnlinePayment-PaperlessTrans';
+my $ns   = 'Business::PaperlessTrans::';
 
 sub submit { ## no critic ( ProhibitExcessComplexity )
 	my ( $self ) = @_;
 
+	$self->required_fields(qw( amount currency login password ));
+
 	my %content = $self->content;
 	my $action  = lc $content{action};
 	my $trans_t = lc $self->transaction_type;
-	my $debug   = $content{debug} ? $content{debug} : 0;
 	my $token   = $self->_content_to_token( %content );
 	my $ident   = $self->_content_to_ident( %content );
 	my $address = $self->_content_to_address( %content );
 
+	$self->{debug} = $content{debug} ? $content{debug} : 0;
+
 	my %args = (
-		amount       => $content{amount},
-		currency     => $content{currency},
-		token        => $token,
-		test         => $self->test_transaction ? 1 : 0,
+		Amount       => $content{amount},
+		Currency     => $content{currency},
+		Token        => $token,
+		TestMode     => $self->test_transaction ? 'true' : 'false',
+		CustomFields => {},
 	);
 
 	my %payment_content = (
@@ -36,63 +46,126 @@ sub submit { ## no critic ( ProhibitExcessComplexity )
 	);
 
 	if ( $trans_t eq 'cc' ) {
-		$args{card_present} = $content{track1} ? 1 : 0;
-	    $args{card} = $self->_content_to_card( %payment_content );
+		$args{CardPresent} = $content{track1} ? 1 : 0;
+	    $args{Card} = $self->_content_to_card( %payment_content );
 	}
 	elsif ( $trans_t eq 'echeck' ) {
-		$args{check_number} = $content{check_number};
-		$args{check} = $self->_content_to_check( %payment_content );
+		$args{CheckNumber} = $content{check_number};
+		$args{Check} = $self->_content_to_check( %payment_content );
 	}
 
 	## determine appropriate request class
-	my $request_class;
+	my $type;
 	if ( $action eq 'authorization only' && $trans_t eq 'cc' ){
-		$request_class = 'AuthorizeCard';
+		$type = 'AuthorizeCard';
 	}
 	elsif ( $action eq 'normal authorization' && $trans_t eq 'cc' ) {
-		$request_class = 'ProcessCard';
+		$type = 'ProcessCard';
 	}
 	elsif ( $action eq 'normal authorization' && $trans_t eq 'echeck' ) {
-		$request_class = 'ProcessACH';
+		$type = 'ProcessACH';
 	}
 
-
-	my $request
-		= load_class( $ns . 'Request::' . $request_class )
-		->new( \%args )
-		;
-
-	$self->{_client}
-		||= load_class( $ns . 'Client')
-		->new({ debug => $debug })
-		;
-
-	my $response = $self->{_client}->submit( $request );
+	my $response = $self->_transmit( \%args, $type );
 
 	# code != 0 is a transmission error
-	if ( $response->code == 0 ) {
+	if ( $response->{ResponseCode} == 0 ) {
 		# in future should consider making thse the same api?
-		if (   ( $response->can('is_approved') && $response->is_approved )
-			|| ( $response->can('is_accepted') && $response->is_accepted )
+		if ( _bool( $response->{IsApproved} )
+			|| _bool( $response->{IsAccepted} )
 			) {
 			$self->is_success(1);
 		}
 		else {
 			$self->is_success(0);
-			$self->error_message( $response->message );
+			$self->error_message( $response->{Message} );
 		}
 	}
 	else {
-		confess $response->message;
+		confess $response->{Message};
 	}
 
-	$self->authorization( $response->authorization )
-		if $response->can('authorization');
+	$self->authorization( $response->{Authorization} );
 
-	$self->order_number( $response->transaction_id )
-		if $response->can('transaction_id');
+	$self->order_number( $response->{TransactionID} );
 
 	return;
+}
+
+sub _bool {
+	my $val = shift;
+
+	return 1 if defined $val && lc $val eq 'true';
+	return 0;
+}
+
+sub _transmit {
+	my ( $self, $request, $type ) = @_;
+
+	my %request = ( req => $request );
+
+	if ($self->{debug} >= 1 ) {
+		load 'Data::Dumper', 'Dumper';
+		carp Dumper( \%request );
+	}
+
+	my ( $answer, $trace ) = $self->_get_call( $type )->( %request );
+
+	carp "REQUEST >\n"  . $trace->request->as_string  if $self->{debug} > 1;
+	carp "RESPONSE <\n" . $trace->response->as_string if $self->{debug} > 1;
+
+	if ( $self->{debug} >= 1 ) {
+		carp Dumper( $answer );
+	}
+
+	return $answer->{parameters}{$type . 'Result'};
+}
+
+sub _get_call {
+	my ( $self, $type ) = @_;
+
+	return $self->{calls}{$type} if defined $self->{calls}{$type};
+
+	$self->_build_calls;
+
+	return $self->_get_call( $type );
+}
+
+sub _build_calls {
+	my $self = shift;
+
+	my @calls = qw( AuthorizeCard ProcessCard ProcessACH );
+
+	my %calls;
+	foreach my $call ( @calls ) {
+		$calls{$call} = $self->_wsdl->compileClient( $call );
+	}
+	$self->{calls} = \%calls;
+
+	return;
+}
+
+sub _wsdl {
+	my $self = shift;
+
+	my $wsdl
+		= XML::Compile::WSDL11->new(
+			dist_file( $dist, 'svc.paperlesstrans.wsdl')
+		);
+
+	foreach my $xsd ( $self->_list_xsd_files ) {
+		$wsdl->importDefinitions( $xsd );
+	}
+
+	return $wsdl;
+}
+
+sub _list_xsd_files {
+	my @xsd;
+	foreach my $i ( 0..6 ) {
+		push @xsd, dist_file( $dist, "svc.paperlesstrans.$i.xsd");
+	}
+	return @xsd;
 }
 
 sub _content_to_ident {
@@ -101,82 +174,78 @@ sub _content_to_ident {
 	return unless $content{license_num};
 
 	my %mapped = (
-		id_type       => 1, # B:OP 3.02 there is only drivers license
-		number        => $content{license_num},
+		IDType => 1, # B:OP 3.02 there is only drivers license
+		Number => $content{license_num},
 	);
 
-	return load_class( $ns . 'RequestPart::Identification')->new( \%mapped );
+	return \%mapped;
 }
 
 sub _content_to_token {
 	my ( $self, %content ) = @_;
 
 	my %mapped = (
-		terminal_id  => $content{login},
-		terminal_key => $content{password},
+		TerminalID  => $content{login},
+		TerminalKey => $content{password},
 	);
 
-	return load_class( $ns . 'RequestPart::AuthenticationToken')
-		->new( \%mapped )
-		;
+	return \%mapped;
 }
 
 sub _content_to_address {
 	my ( $self, %content ) = @_;
 
 	my %mapped = (
-		street  => $content{address},
-		city    => $content{city},
-		state   => $content{state},
-		zip     => $content{zip},
-		country => $content{country},
+		Street  => $content{address},
+		City    => $content{city},
+		State   => $content{state},
+		Zip     => $content{zip},
+		Country => $content{country},
 	);
 
-	return load_class( $ns . 'RequestPart::Address')
-		->new( \%mapped )
-		;
+	return \%mapped;
 }
 
 sub _content_to_check {
 	my ( $self, %content ) = @_;
 
+	$self->required_fields(qw( routing_code account_number account_name ));
+
 	my %mapped = (
-		name_on_account => $content{account_name},
-		account_number  => $content{account_number},
-		routing_number  => $content{routing_code},
-		identification  => $content{identification},
-		address         => $content{address},
-		email_address   => $content{email},
+		NameOnAccount  => $content{account_name},
+		AccountNumber  => $content{account_number},
+		RoutingNumber  => $content{routing_code},
+		Identification => $content{identification} || {},
+		Address        => $content{address},
+		EmailAddress   => $content{email},
 	);
 
-	return load_class( $ns . 'RequestPart::Check')
-		->new( \%mapped )
-		;
+	return \%mapped;
 }
 
 sub _content_to_card {
 	my ( $self, %content ) = @_;
 
+	$self->required_fields(qw( expiration name card_number ));
 	# expiration api is bad but conforms to Business::OnlinePayment 3.02 Spec
-
 	$content{expiration} =~ m/^(\d\d)(\d\d)$/xms;
 	my ( $exp_month, $exp_year ) = ( $1, $2 ); ## no critic ( ProhibitCaptureWithoutTest )
 
 	my %mapped = (
-		name_on_account  => $content{name},
-		number           => $content{card_number},
-		security_code    => $content{cvv2},
-		identification   => $content{identification},
-		address          => $content{address},
-		email_address    => $content{email},
-		expiration_month => $exp_month,
-		expiration_year  => '20' . $exp_year,
+		NameOnAccount   => $content{name},
+		CardNumber      => $content{card_number},
+		SecurityCode    => $content{cvv2},
+		Identification  => $content{identification} || {},
+		Address         => $content{address},
+		EmailAddress    => $content{email},
+		ExpirationMonth => $exp_month,
+		ExpirationYear  => '20' . $exp_year,
 	);
 
-	$mapped{track_data} = $content{track1} . $content{track2}
+	$mapped{TrackData} = $content{track1} . $content{track2}
 		if $content{track1} && $content{track2};
 
-	return load_class( $ns . 'RequestPart::Card')->new( \%mapped );
+	return \%mapped;
 }
 
 1;
@@ -212,7 +281,9 @@ version 0.001004
 		action         => 'Normal Authorization',
 		check_number   => '132',
 		amount         => 1.32,
+		currency       => 'USD',
 		routing_code   => 111111118,
+		account_name   => 'Caleb Cushing',,
 		account_number => 12121214,
 		name           => 'Caleb Cushing',
 		address        => '400 E. Royal Lane #201',
@@ -241,12 +312,13 @@ version 0.001004
 
 	# start all over again credit cards
 	$tx->content(
-		login          => 'TerminalID',
-		password       => 'TerminalKey',
-		debug          => '1', # 0, 1, 2
+		login       => 'TerminalID',
+		password    => 'TerminalKey',
+		debug       => '1', # 0, 1, 2
 		type        => 'CC',
 		action      => 'Authorization Only',
 		amount      => 1.00,
+		currency    => 'USD',
 		name        => 'Caleb Cushing',
 		card_number => '5454545454545454',
 		expiration  => '1215',

@@ -25,21 +25,12 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Business::OnlinePayment" => 0,
     "Carp" => 0,
-    "Class::Load" => "0.20",
-    "File::Spec" => 0,
+    "File::ShareDir" => 0,
     "LWP::Protocol::https" => 0,
     "Module::Load" => 0,
-    "Moose" => 0,
-    "Moose::Role" => 0,
-    "Moose::Util::TypeConstraints" => 0,
-    "MooseX::RemoteHelper" => 0,
-    "MooseX::RemoteHelper::CompositeSerialization" => 0,
-    "MooseX::RemoteHelper::Types" => 0,
-    "MooseX::UndefTolerant" => 0,
     "XML::Compile::SOAP11" => 0,
     "XML::Compile::Transport::SOAPHTTP" => 0,
     "XML::Compile::WSDL11" => 0,
-    "namespace::autoclean" => 0,
     "parent" => 0,
     "strict" => 0,
     "warnings" => 0
@@ -50,7 +41,7 @@ my %WriteMakefileArgs = (
   },
   "VERSION" => "0.001004",
   "test" => {
-    "TESTS" => "t/*.t t/bop/cc/reject/*.t t/bop/cc/success/*.t t/bop/echeck/reject/*.t t/bop/echeck/success/*.t t/request/*.t"
+    "TESTS" => "t/*.t t/cc/*.t t/echeck/reject/*.t t/echeck/success/*.t"
   }
 );
 

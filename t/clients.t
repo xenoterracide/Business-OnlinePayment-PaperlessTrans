@@ -1,15 +1,11 @@
 use strict;
 use warnings;
 use Test::More;
-use Class::Load 0.20 'load_class';
+use Business::OnlinePayment;
 
-my $client0 = new_ok load_class('Business::PaperlessTrans::Client');
-
-my $client1 = load_class('Business::OnlinePayment')->new( 'PaperlessTrans' );
+my $client1 = new_ok( 'Business::OnlinePayment' => [ 'PaperlessTrans' ] );
 
 isa_ok $client1, 'Business::OnlinePayment::PaperlessTrans';
-
-can_ok $client0, 'submit';
 can_ok $client1, 'submit';
 can_ok $client1, 'content';
 
