@@ -20,6 +20,8 @@ my $ns   = 'Business::PaperlessTrans::';
 sub submit { ## no critic ( ProhibitExcessComplexity )
 	my ( $self ) = @_;
 
+	$self->required_fields(qw( amount currency login password ));
+
 	my %content = $self->content;
 	my $action  = lc $content{action};
 	my $trans_t = lc $self->transaction_type;
@@ -207,6 +209,8 @@ sub _content_to_address {
 sub _content_to_check {
 	my ( $self, %content ) = @_;
 
+	$self->required_fields(qw( routing_code account_number account_name ));
+
 	my %mapped = (
 		NameOnAccount  => $content{account_name},
 		AccountNumber  => $content{account_number},
@@ -222,8 +226,8 @@ sub _content_to_check {
 sub _content_to_card {
 	my ( $self, %content ) = @_;
 
+	$self->required_fields(qw( expiration name card_number ));
 	# expiration api is bad but conforms to Business::OnlinePayment 3.02 Spec
-
 	$content{expiration} =~ m/^(\d\d)(\d\d)$/xms;
 	my ( $exp_month, $exp_year ) = ( $1, $2 ); ## no critic ( ProhibitCaptureWithoutTest )
 
