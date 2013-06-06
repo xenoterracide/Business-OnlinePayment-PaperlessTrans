@@ -23,10 +23,10 @@ sub submit { ## no critic ( ProhibitExcessComplexity )
 	my $address = $self->_content_to_address( %content );
 
 	my %args = (
-		amount       => $content{amount},
-		currency     => $content{currency},
-		token        => $token,
-		test         => $self->test_transaction ? 1 : 0,
+		Amount   => $content{amount},
+		Currency => $content{currency},
+		Token    => $token,
+		Test     => $self->test_transaction ? 1 : 0,
 	);
 
 	my %payment_content = (
@@ -101,8 +101,8 @@ sub _content_to_ident {
 	return unless $content{license_num};
 
 	my %mapped = (
-		id_type       => 1, # B:OP 3.02 there is only drivers license
-		number        => $content{license_num},
+		IDType => 1, # B:OP 3.02 there is only drivers license
+		Number => $content{license_num},
 	);
 
 	return load_class( $ns . 'RequestPart::Identification')->new( \%mapped );
@@ -112,8 +112,8 @@ sub _content_to_token {
 	my ( $self, %content ) = @_;
 
 	my %mapped = (
-		terminal_id  => $content{login},
-		terminal_key => $content{password},
+		TerminalID  => $content{login},
+		TerminalKey => $content{password},
 	);
 
 	return load_class( $ns . 'RequestPart::AuthenticationToken')
@@ -125,11 +125,11 @@ sub _content_to_address {
 	my ( $self, %content ) = @_;
 
 	my %mapped = (
-		street  => $content{address},
-		city    => $content{city},
-		state   => $content{state},
-		zip     => $content{zip},
-		country => $content{country},
+		Street  => $content{address},
+		City    => $content{city},
+		State   => $content{state},
+		Zip     => $content{zip},
+		Country => $content{country},
 	);
 
 	return load_class( $ns . 'RequestPart::Address')
@@ -141,12 +141,12 @@ sub _content_to_check {
 	my ( $self, %content ) = @_;
 
 	my %mapped = (
-		name_on_account => $content{account_name},
-		account_number  => $content{account_number},
-		routing_number  => $content{routing_code},
-		identification  => $content{identification},
-		address         => $content{address},
-		email_address   => $content{email},
+		NameOnAccount  => $content{account_name},
+		AccountNumber  => $content{account_number},
+		RoutingNumber  => $content{routing_code},
+		Identification => $content{identification},
+		Address        => $content{address},
+		EmailAddress   => $content{email},
 	);
 
 	return load_class( $ns . 'RequestPart::Check')
@@ -163,17 +163,17 @@ sub _content_to_card {
 	my ( $exp_month, $exp_year ) = ( $1, $2 ); ## no critic ( ProhibitCaptureWithoutTest )
 
 	my %mapped = (
-		name_on_account  => $content{name},
-		number           => $content{card_number},
-		security_code    => $content{cvv2},
-		identification   => $content{identification},
-		address          => $content{address},
-		email_address    => $content{email},
-		expiration_month => $exp_month,
-		expiration_year  => '20' . $exp_year,
+		NameOnAccount   => $content{name},
+		CardNumber      => $content{card_number},
+		SecurityCode    => $content{cvv2},
+		Identification  => $content{identification},
+		Address         => $content{address},
+		EmailAddress    => $content{email},
+		ExpirationMonth => $exp_month,
+		ExpirationYear  => '20' . $exp_year,
 	);
 
-	$mapped{track_data} = $content{track1} . $content{track2}
+	$mapped{TrackData} = $content{track1} . $content{track2}
 		if $content{track1} && $content{track2};
 
 	return load_class( $ns . 'RequestPart::Card')->new( \%mapped );
