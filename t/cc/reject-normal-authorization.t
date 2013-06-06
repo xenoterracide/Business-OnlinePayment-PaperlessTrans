@@ -31,5 +31,6 @@ $tx->content(
 $tx->submit;
 
 ok ! $tx->is_success, 'not success';
+like $tx->error_message, qr/Declined/i, 'declined';
 
 done_testing;
