@@ -59,7 +59,7 @@
    "provides" : {
       "Business::OnlinePayment::PaperlessTrans" : {
          "file" : "lib/Business/OnlinePayment/PaperlessTrans.pm",
-         "version" : "0.001005"
+         "version" : "0.001006"
       }
    },
    "release_status" : "stable",
@@ -74,6 +74,6 @@
          "web" : "https://github.com/xenoterracide/business-onlinepayment-paperlesstrans"
       }
    },
-   "version" : "0.001005"
+   "version" : "0.001006"
 }
 

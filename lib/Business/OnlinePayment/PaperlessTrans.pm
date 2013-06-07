@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.001005'; # VERSION
+our $VERSION = '0.001006'; # VERSION
 
 use parent 'Business::OnlinePayment';
 
@@ -262,7 +262,7 @@ Business::OnlinePayment::PaperlessTrans - Interface to Paperless Transaction Cor
 
 =head1 VERSION
 
-version 0.001005
+version 0.001006
 
 =head1 SYNOPSIS
 

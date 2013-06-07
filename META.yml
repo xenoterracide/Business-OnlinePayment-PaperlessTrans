@@ -20,7 +20,7 @@ no_index:
 provides:
   Business::OnlinePayment::PaperlessTrans:
     file: lib/Business/OnlinePayment/PaperlessTrans.pm
-    version: 0.001005
+    version: 0.001006
 requires:
   Business::OnlinePayment: 0
   Carp: 0
@@ -38,4 +38,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/business-onlinepayment-paperlesstrans/issues
   homepage: https://metacpan.org/release/Business-OnlinePayment-PaperlessTrans
   repository: git://github.com/xenoterracide/business-onlinepayment-paperlesstrans.git
-version: 0.001005
+version: 0.001006
