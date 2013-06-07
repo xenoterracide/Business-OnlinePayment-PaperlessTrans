@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 {{$NEXT}}
 
+0.001006  2013-06-07
+	- accidentally removed all prereqs when removing DateTime Prereq
+
 0.001005  2013-06-07
 	- DateTime is no longer used
 
