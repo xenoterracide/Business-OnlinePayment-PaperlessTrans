@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 {{$NEXT}}
 
+0.001005  2013-06-07
+	- DateTime is no longer used
+
 0.001004  2013-06-06
 	- remove Moose, and Split from Business::PaperlessTrans
 
