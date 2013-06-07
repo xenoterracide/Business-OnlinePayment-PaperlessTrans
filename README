@@ -3,7 +3,7 @@ NAME
     Transaction Corporation BackOffice API
 
 VERSION
-    version 0.001004
+    version 0.001005
 
 SYNOPSIS
             use Try::Tiny;

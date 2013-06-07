@@ -20,11 +20,11 @@ no_index:
 provides:
   Business::OnlinePayment::PaperlessTrans:
     file: lib/Business/OnlinePayment/PaperlessTrans.pm
-    version: 0.001004
+    version: 0.001005
 requires:
   LWP::Protocol::https: 0
 resources:
   bugtracker: https://github.com/xenoterracide/business-onlinepayment-paperlesstrans/issues
   homepage: https://metacpan.org/release/Business-OnlinePayment-PaperlessTrans
   repository: git://github.com/xenoterracide/business-onlinepayment-paperlesstrans.git
-version: 0.001004
+version: 0.001005
